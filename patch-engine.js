@@ -107,12 +107,11 @@ const customGlassStyle = `
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
-      gap: 6px !important;
-      height: 24px !important;
-      padding: 0 10px !important;
-      margin-left: 4px !important;
-      margin-right: 4px !important;
-      border-radius: 6px !important;
+      gap: 4px !important;
+      height: 22px !important;
+      padding: 0 8px !important;
+      margin: 0 !important;
+      border-radius: 5px !important;
       background: rgba(255, 255, 255, 0.08) !important;
       border: 1px solid rgba(255, 255, 255, 0.14) !important;
       color: #cbd5e1 !important;
@@ -626,18 +625,26 @@ function generateOpenWorkEngineScript() {
                           document.getElementById('opencode-titlebar-right');
 
         if (topHeader) {
+          let group = document.getElementById('openwork-btn-group');
+          if (!group) {
+            group = document.createElement('div');
+            group.id = 'openwork-btn-group';
+            group.style.cssText = 'display: inline-flex !important; align-items: center !important; gap: 4px !important; margin-left: 6px !important; margin-right: 6px !important; -webkit-app-region: no-drag !important; z-index: 99999 !important;';
+            topHeader.insertBefore(group, topHeader.firstChild);
+          }
+
           if (!document.getElementById('openwork-dashboard-btn')) {
             const dashBtn = document.createElement('button');
             dashBtn.id = 'openwork-dashboard-btn';
             dashBtn.type = 'button';
             dashBtn.title = 'Abrir Control Center (http://localhost:3030/)';
             dashBtn.className = 'ow-native-titlebar-btn';
-            dashBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5"></rect></svg><span>Dashboard</span>';
+            dashBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5"></rect></svg><span>Dashboard</span>';
             dashBtn.addEventListener('click', function(e) {
               e.stopPropagation(); e.preventDefault();
               window.open('http://localhost:3030/', '_blank');
             });
-            topHeader.insertBefore(dashBtn, topHeader.firstChild);
+            group.appendChild(dashBtn);
           }
 
           if (!document.getElementById('openwork-theme-btn')) {
@@ -651,12 +658,7 @@ function generateOpenWorkEngineScript() {
               e.stopPropagation(); e.preventDefault();
               openThemeModal();
             });
-            const dashBtn = document.getElementById('openwork-dashboard-btn');
-            if (dashBtn && dashBtn.parentNode) {
-              dashBtn.parentNode.insertBefore(themeBtn, dashBtn.nextSibling);
-            } else {
-              topHeader.appendChild(themeBtn);
-            }
+            group.appendChild(themeBtn);
           }
         }
       }
