@@ -43,7 +43,7 @@ npx --yes @electron/asar extract "$ASAR_FILE" "$WORK_DIR"
 
 # 5. Execução do motor de injeção JS no ASAR
 echo "💉 Injetando regras de Liquid Glass, Apple Vibrancy e Dashboard Button no pacote ASAR..."
-node "${SCRIPT_DIR}/patch-engine-openwork.js" "$WORK_DIR"
+node "${SCRIPT_DIR}/patch-engine.js" "$WORK_DIR"
 
 # 6. Reempacotamento do ASAR
 echo "📦 Reempacotando app.asar..."
@@ -52,7 +52,7 @@ npx --yes @electron/asar pack "$WORK_DIR" "$ASAR_FILE"
 # 7. Injeção direta no app-dist (se existir em Resources)
 if [ -d "${RESOURCES_DIR}/app-dist" ]; then
     echo "💉 Injetando regras no diretório solto app-dist..."
-    node "${SCRIPT_DIR}/patch-engine-openwork.js" "${RESOURCES_DIR}/app-dist"
+    node "${SCRIPT_DIR}/patch-engine.js" "${RESOURCES_DIR}/app-dist"
 fi
 
 # 8. Limpeza
