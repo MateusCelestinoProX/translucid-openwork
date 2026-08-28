@@ -1,19 +1,18 @@
 /**
- * patch-engine-openwork.js — Translucid OpenWork (Crystal Glass + Palette Theme Picker)
+ * patch-engine.js — Translucid OpenWork (Super Premium Glass + Walking Orbs & Multi-Effects)
  */
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
-const themePicker = require('./theme-picker-bundle.js');
+const fs = require("fs");
+const path = require("path");
+const { execSync } = require("child_process");
 
 const targetDir = process.argv[2];
 
 if (!targetDir || !fs.existsSync(targetDir)) {
-  console.error('❌ Diretório não fornecido ou inexistente:', targetDir);
+  console.error("❌ Diretório não fornecido ou inexistente:", targetDir);
   process.exit(1);
 }
 
-console.log('⚡ [OpenWork] Aplicando Crystal Translucid + Theme Picker em:', targetDir);
+console.log("⚡ [OpenWork] Aplicando Super Premium Glass + Multi-Effects em:", targetDir);
 
 const customGlassStyle = `
   <style id="translucid-openwork-glass">
@@ -34,28 +33,28 @@ const customGlassStyle = `
       --foreground: #e6edf3 !important;
       --card: transparent !important;
       --card-foreground: #e6edf3 !important;
-      --popover: rgba(18, 22, 30, 0.75) !important;
+      --popover: rgba(18, 22, 30, 0.85) !important;
       --popover-foreground: #e6edf3 !important;
-      --popover-border: rgba(255, 255, 255, 0.10) !important;
+      --popover-border: rgba(255, 255, 255, 0.12) !important;
       --sidebar: transparent !important;
       --sidebar-foreground: #e6edf3 !important;
-      --sidebar-border: rgba(255, 255, 255, 0.06) !important;
-      --muted: rgba(255, 255, 255, 0.04) !important;
+      --sidebar-border: rgba(255, 255, 255, 0.08) !important;
+      --muted: rgba(255, 255, 255, 0.05) !important;
       --muted-foreground: #9198a1 !important;
-      --secondary: rgba(255, 255, 255, 0.04) !important;
+      --secondary: rgba(255, 255, 255, 0.05) !important;
       --secondary-foreground: #e6edf3 !important;
-      --accent: rgba(255, 255, 255, 0.06) !important;
+      --accent: rgba(255, 255, 255, 0.08) !important;
       --accent-foreground: #ffffff !important;
 
       --dls-text-primary: #e6edf3 !important;
       --dls-text-secondary: #9198a1 !important;
-      --dls-border: rgba(255, 255, 255, 0.06) !important;
-      --border: rgba(255, 255, 255, 0.06) !important;
+      --dls-border: rgba(255, 255, 255, 0.08) !important;
+      --border: rgba(255, 255, 255, 0.08) !important;
       --input: rgba(255, 255, 255, 0.08) !important;
 
-      --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif !important;
-      --font-heading: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif !important;
-      --font-mono: 'JetBrainsMono Nerd Font', 'Fira Code', 'SF Mono', Menlo, monospace !important;
+      --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif !important;
+      --font-heading: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif !important;
+      --font-mono: "JetBrainsMono Nerd Font", "Fira Code", "SF Mono", Menlo, monospace !important;
     }
 
     #root, main, [data-slot="app-root"], .app-container, [data-slot="canvas-container"], section, article {
@@ -89,19 +88,19 @@ const customGlassStyle = `
     }
 
     input, textarea, select, [contenteditable="true"] {
-      background-color: rgba(255, 255, 255, 0.04) !important;
-      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      background-color: rgba(255, 255, 255, 0.05) !important;
+      border: 1px solid rgba(255, 255, 255, 0.10) !important;
       color: #e6edf3 !important;
       border-radius: 8px !important;
       box-shadow: none !important;
     }
 
     dialog, [role="dialog"], [class*="modal"], [class*="popover"] {
-      background: rgba(18, 22, 30, 0.80) !important;
-      backdrop-filter: blur(30px) !important;
-      -webkit-backdrop-filter: blur(30px) !important;
-      border: 1px solid rgba(255, 255, 255, 0.10) !important;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.50) !important;
+      background: rgba(18, 22, 30, 0.88) !important;
+      backdrop-filter: blur(35px) !important;
+      -webkit-backdrop-filter: blur(35px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.60) !important;
     }
 
     .ow-native-titlebar-btn {
@@ -111,12 +110,12 @@ const customGlassStyle = `
       gap: 6px !important;
       height: 24px !important;
       padding: 0 10px !important;
-      margin-left: 6px !important;
-      margin-right: 2px !important;
+      margin-left: 4px !important;
+      margin-right: 4px !important;
       border-radius: 6px !important;
-      background: rgba(255, 255, 255, 0.07) !important;
-      border: 1px solid rgba(255, 255, 255, 0.10) !important;
-      color: #c9d1d9 !important;
+      background: rgba(255, 255, 255, 0.08) !important;
+      border: 1px solid rgba(255, 255, 255, 0.14) !important;
+      color: #cbd5e1 !important;
       font-family: var(--font-sans) !important;
       font-size: 11px !important;
       font-weight: 500 !important;
@@ -126,76 +125,586 @@ const customGlassStyle = `
       transition: all 0.15s ease !important;
     }
     .ow-native-titlebar-btn:hover {
-      background: rgba(255, 255, 255, 0.14) !important;
-      border-color: rgba(255, 255, 255, 0.22) !important;
+      background: rgba(255, 255, 255, 0.16) !important;
+      border-color: rgba(255, 255, 255, 0.28) !important;
       color: #ffffff !important;
+      transform: translateY(-1px);
     }
   </style>
 `;
 
-const openworkDashboardScript = `
-  <script id="ow-dashboard-script">
+function generateOpenWorkEngineScript() {
+  const THEMES_JSON = JSON.stringify([
+    { id: "poimandres", name: "Poimandres (Cyan & Emerald)", primary: "#5DE4c7", keyword: "#f087bd", func: "#00CED1", string: "#fffac2", comment: "#767c9d", accents: ["#5DE4c7", "#00CED1", "#f087bd", "#fffac2"] },
+    { id: "neon-emerald", name: "Neon Emerald & Cyan", primary: "#10b981", keyword: "#06b6d4", func: "#34d399", string: "#a7f3d0", comment: "#64748b", accents: ["#10b981", "#06b6d4", "#34d399", "#a7f3d0"] },
+    { id: "ayu-dark", name: "Ayu Dark", primary: "#E6B450", keyword: "#FF8F40", func: "#39BAE6", string: "#AAD94C", comment: "#626d7a", accents: ["#E6B450", "#FF8F40", "#39BAE6", "#AAD94C"] },
+    { id: "moonlight", name: "Moonlight", primary: "#af9fff", keyword: "#ff757f", func: "#78dbff", string: "#c3e88d", comment: "#7a88cf", accents: ["#af9fff", "#ff757f", "#78dbff", "#c3e88d"] },
+    { id: "purple-dream", name: "Purple Dream", primary: "#a855f7", keyword: "#ec4899", func: "#8b5cf6", string: "#f472b6", comment: "#6b7280", accents: ["#a855f7", "#ec4899", "#8b5cf6", "#f472b6"] },
+    { id: "cyber-cyan", name: "Cyber Cyan", primary: "#00f0ff", keyword: "#ff007f", func: "#ffe600", string: "#00ffcc", comment: "#555577", accents: ["#00f0ff", "#ff007f", "#ffe600", "#00ffcc"] }
+  ]);
+
+  return `
+  <script id="translucid-openwork-master-script">
     (function() {
-      function mountBtn() {
-        if (document.getElementById('openwork-dashboard-btn')) return;
-        const container = document.querySelector('[data-slot="titlebar-actions"]') ||
-                          document.querySelector('[data-slot="titlebar-right"]') ||
-                          document.getElementById('opencode-titlebar-right') ||
-                          document.querySelector('header [class*="actions"]') ||
-                          document.querySelector('header') ||
-                          document.querySelector('nav');
-        if (container) {
-          const btn = document.createElement('button');
-          btn.id = 'openwork-dashboard-btn';
-          btn.type = 'button';
-          btn.title = 'Abrir Control Center (http://localhost:3030/)';
-          btn.className = 'ow-native-titlebar-btn';
-          btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5"></rect></svg><span>Dashboard</span>';
-          btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            const url = 'http://localhost:3030/';
-            if (window.openwork && typeof window.openwork.openExternal === 'function') {
-              window.openwork.openExternal(url);
-            } else if (window.api && typeof window.api.openExternal === 'function') {
-              window.api.openExternal(url);
-            } else {
-              window.open(url, '_blank');
-            }
+      'use strict';
+
+      const THEMES_LIST = ` + THEMES_JSON + `;
+      const EFFECTS_LIST = [
+        { id: 'walking-lava', name: 'Plasma Lava (Orbs)', icon: '🌋', desc: '2 massas fluidas de plasma com gradientes reais caminhando suavemente pela tela' },
+        { id: 'deep-horizon', name: 'Deep Horizon Radiant', icon: '🌅', desc: 'Nébula profunda na base amplificada com feixes de luz e raios irradiando para cima' },
+        { id: 'celestial-radiance', name: 'Celestial Radiance', icon: '✨', desc: 'Fonte de luz no canto superior direito irradiando raios elegantes pela tela' },
+        { id: 'cyber-pulse', name: 'Cyber Neon Pulse', icon: '⚡', desc: 'Feixes perimetrais de laser e pulso neon com vibração eletromagnética' },
+        { id: 'aurora-waves', name: 'Aurora Liquid Waves', icon: '🌊', desc: 'Ondas ondulantes orgânicas estilo Aurora Boreal no topo e laterais' },
+        { id: 'pure-glass', name: 'Pure Crystal Glass', icon: '💎', desc: 'Vidro cristal 100% puro e translúcido sem efeitos de luz adicionais' }
+      ];
+
+      const QUICK_PALETTES = [
+        { name: 'Cyan & Emerald', p: '#5DE4c7', s: '#10b981', a: '#00CED1' },
+        { name: 'Cyber Neon', p: '#00f0ff', s: '#ff007f', a: '#ffe600' },
+        { name: 'Purple Dream', p: '#a855f7', s: '#ec4899', a: '#8b5cf6' },
+        { name: 'Solar Flare', p: '#f59e0b', s: '#ef4444', a: '#fbbf24' },
+        { name: 'Electric Blue', p: '#3b82f6', s: '#8b5cf6', a: '#60a5fa' },
+        { name: 'Crimson Orange', p: '#f43f5e', s: '#fb923c', a: '#fda4af' }
+      ];
+
+      const KEY_THEME = 'openwork-translucid-theme-id';
+      const KEY_EFFECT = 'openwork-translucid-effect-id';
+      const KEY_SPEED = 'openwork-translucid-speed';
+      const KEY_INTENSITY = 'openwork-translucid-intensity';
+      const KEY_CUSTOM_MODE = 'openwork-translucid-custom-mode';
+      const KEY_CUSTOM_P = 'openwork-translucid-custom-p';
+      const KEY_CUSTOM_S = 'openwork-translucid-custom-s';
+      const KEY_CUSTOM_A = 'openwork-translucid-custom-a';
+
+      let activeThemeId = localStorage.getItem(KEY_THEME) || 'poimandres';
+      let activeEffectId = localStorage.getItem(KEY_EFFECT) || 'walking-lava';
+      let activeSpeed = localStorage.getItem(KEY_SPEED) || 'medium';
+      let activeIntensity = parseFloat(localStorage.getItem(KEY_INTENSITY) || '0.75');
+      let isCustomMode = localStorage.getItem(KEY_CUSTOM_MODE) === 'true';
+      let customPrimary = localStorage.getItem(KEY_CUSTOM_P) || '#5DE4c7';
+      let customSecondary = localStorage.getItem(KEY_CUSTOM_S) || '#10b981';
+      let customAccent = localStorage.getItem(KEY_CUSTOM_A) || '#a855f7';
+
+      function getActiveColors() {
+        if (isCustomMode) {
+          return {
+            id: 'custom',
+            name: 'Personalizado',
+            primary: customPrimary,
+            keyword: customSecondary,
+            func: customAccent,
+            accents: [customPrimary, customSecondary, customAccent]
+          };
+        }
+        return THEMES_LIST.find(function(t) { return t.id === activeThemeId; }) || THEMES_LIST[0];
+      }
+
+      function getSpeedSec(spd) {
+        if (spd === 'low') return 32;
+        if (spd === 'high') return 12;
+        if (spd === 'turbo') return 6;
+        return 18;
+      }
+
+      function getOrCreateVisualLayers() {
+        const root = document.documentElement;
+
+        let walkingLayer = document.getElementById('translucid-walking-layer');
+        if (!walkingLayer) {
+          walkingLayer = document.createElement('div');
+          walkingLayer.id = 'translucid-walking-layer';
+          walkingLayer.style.cssText = 'position: fixed; inset: 0; pointer-events: none; z-index: 99998; overflow: hidden; mix-blend-mode: screen; transition: opacity 0.3s ease;';
+          walkingLayer.innerHTML = '<div id="walking-orb-1" class="walking-orb"></div><div id="walking-orb-2" class="walking-orb"></div>';
+          root.appendChild(walkingLayer);
+        }
+
+        let ambientLayer = document.getElementById('translucid-ambient-glow-layer');
+        if (!ambientLayer) {
+          ambientLayer = document.createElement('div');
+          ambientLayer.id = 'translucid-ambient-glow-layer';
+          ambientLayer.style.cssText = 'position: fixed; inset: 0; pointer-events: none; z-index: 99997; overflow: hidden; mix-blend-mode: screen; transition: opacity 0.3s ease;';
+          root.appendChild(ambientLayer);
+        }
+
+        let horizonLayer = document.getElementById('translucid-horizon-layer');
+        if (!horizonLayer) {
+          horizonLayer = document.createElement('div');
+          horizonLayer.id = 'translucid-horizon-layer';
+          horizonLayer.style.cssText = 'position: fixed; inset: 0; pointer-events: none; z-index: 99996; overflow: hidden; mix-blend-mode: screen; transition: opacity 0.3s ease;';
+          horizonLayer.innerHTML = '<div id="horizon-base-glow" class="horizon-base-glow"></div><div id="horizon-radiant-rays" class="horizon-radiant-rays"></div>';
+          root.appendChild(horizonLayer);
+        }
+
+        let celestialLayer = document.getElementById('translucid-celestial-layer');
+        if (!celestialLayer) {
+          celestialLayer = document.createElement('div');
+          celestialLayer.id = 'translucid-celestial-layer';
+          celestialLayer.style.cssText = 'position: fixed; inset: 0; pointer-events: none; z-index: 99995; overflow: hidden; mix-blend-mode: screen; transition: opacity 0.3s ease;';
+          celestialLayer.innerHTML = '<div id="celestial-source" class="celestial-source"></div><div id="celestial-rays" class="celestial-rays"></div>';
+          root.appendChild(celestialLayer);
+        }
+
+        let pulseLayer = document.getElementById('translucid-pulse-layer');
+        if (!pulseLayer) {
+          pulseLayer = document.createElement('div');
+          pulseLayer.id = 'translucid-pulse-layer';
+          pulseLayer.style.cssText = 'position: fixed; inset: 0; pointer-events: none; z-index: 99994; overflow: hidden; mix-blend-mode: screen; transition: opacity 0.3s ease;';
+          pulseLayer.innerHTML = '<div id="cyber-pulse-beam-1" class="cyber-beam"></div><div id="cyber-pulse-beam-2" class="cyber-beam"></div>';
+          root.appendChild(pulseLayer);
+        }
+
+        return {
+          walkingLayer: walkingLayer,
+          ambientLayer: ambientLayer,
+          horizonLayer: horizonLayer,
+          celestialLayer: celestialLayer,
+          pulseLayer: pulseLayer,
+          orb1: document.getElementById('walking-orb-1'),
+          orb2: document.getElementById('walking-orb-2'),
+          horizonBaseGlow: document.getElementById('horizon-base-glow'),
+          horizonRadiantRays: document.getElementById('horizon-radiant-rays'),
+          celestialSource: document.getElementById('celestial-source'),
+          celestialRays: document.getElementById('celestial-rays'),
+          beam1: document.getElementById('cyber-pulse-beam-1'),
+          beam2: document.getElementById('cyber-pulse-beam-2')
+        };
+      }
+
+      function updateVisualLayers() {
+        const colors = getActiveColors();
+        const durationSec = getSpeedSec(activeSpeed);
+        const layers = getOrCreateVisualLayers();
+
+        document.documentElement.classList.add('dark');
+        document.documentElement.style.backgroundColor = 'transparent';
+
+        layers.walkingLayer.style.display = 'none';
+        layers.ambientLayer.style.display = 'none';
+        layers.horizonLayer.style.display = 'none';
+        layers.celestialLayer.style.display = 'none';
+        layers.pulseLayer.style.display = 'none';
+
+        const primaryColor = colors.primary;
+        const secondaryColor = colors.keyword || colors.primary;
+        const accentColor = colors.func || colors.primary;
+
+        if (activeEffectId === 'walking-lava') {
+          layers.walkingLayer.style.display = 'block';
+          layers.walkingLayer.style.opacity = '1';
+
+          if (layers.orb1 && layers.orb2) {
+            layers.orb1.style.opacity = (activeIntensity * 1.15).toFixed(2);
+            layers.orb2.style.opacity = (activeIntensity * 0.95).toFixed(2);
+            layers.orb1.style.background = 'radial-gradient(circle, ' + primaryColor + ' 0%, ' + secondaryColor + '99 44%, transparent 72%)';
+            layers.orb2.style.background = 'radial-gradient(circle, ' + accentColor + ' 0%, ' + primaryColor + '99 44%, transparent 72%)';
+            
+            layers.orb1.style.animation = 'none';
+            layers.orb2.style.animation = 'none';
+            void layers.orb1.offsetWidth;
+            void layers.orb2.offsetWidth;
+
+            layers.orb1.style.animation = 'orbWalkOpposite1 ' + durationSec + 's cubic-bezier(0.42, 0, 0.58, 1) infinite alternate';
+            layers.orb2.style.animation = 'orbWalkOpposite2 ' + durationSec + 's cubic-bezier(0.42, 0, 0.58, 1) infinite alternate';
+          }
+
+        } else if (activeEffectId === 'deep-horizon') {
+          layers.horizonLayer.style.display = 'block';
+          layers.horizonLayer.style.opacity = '1';
+
+          if (layers.horizonBaseGlow && layers.horizonRadiantRays) {
+            layers.horizonBaseGlow.style.opacity = (activeIntensity * 1.35).toFixed(2);
+            layers.horizonBaseGlow.style.background = 'radial-gradient(ellipse 140% 75% at 50% 120%, ' + primaryColor + ' 0%, ' + secondaryColor + '99 45%, ' + accentColor + '44 70%, transparent 92%)';
+            layers.horizonBaseGlow.style.animation = 'horizonBaseGlowPulse ' + (durationSec * 0.7).toFixed(1) + 's ease-in-out infinite alternate';
+
+            layers.horizonRadiantRays.style.opacity = (activeIntensity * 0.95).toFixed(2);
+            layers.horizonRadiantRays.style.background = 'conic-gradient(from 270deg at 50% 100%, transparent 0deg, ' + primaryColor + '55 18deg, transparent 32deg, ' + secondaryColor + '66 45deg, transparent 60deg, ' + accentColor + '44 75deg, transparent 90deg, ' + secondaryColor + '44 105deg, transparent 120deg, ' + primaryColor + '66 135deg, transparent 148deg, ' + accentColor + '44 162deg, transparent 180deg)';
+            layers.horizonRadiantRays.style.animation = 'horizonRaysPulse ' + (durationSec * 0.85).toFixed(1) + 's ease-in-out infinite alternate';
+          }
+
+        } else if (activeEffectId === 'celestial-radiance') {
+          layers.celestialLayer.style.display = 'block';
+          layers.celestialLayer.style.opacity = '1';
+
+          if (layers.celestialSource && layers.celestialRays) {
+            layers.celestialSource.style.opacity = (activeIntensity * 1.3).toFixed(2);
+            layers.celestialSource.style.background = 'radial-gradient(circle at top right, ' + primaryColor + ' 0%, ' + secondaryColor + '99 35%, ' + accentColor + '44 65%, transparent 85%)';
+            layers.celestialSource.style.animation = 'celestialSourceGlow ' + (durationSec * 0.6).toFixed(1) + 's ease-in-out infinite alternate';
+
+            layers.celestialRays.style.opacity = (activeIntensity * 0.85).toFixed(2);
+            layers.celestialRays.style.background = 'conic-gradient(from 180deg at 100% 0%, transparent 0deg, ' + primaryColor + '44 25deg, transparent 40deg, ' + secondaryColor + '55 60deg, transparent 75deg, ' + accentColor + '33 90deg, transparent 110deg)';
+            layers.celestialRays.style.animation = 'celestialRaysPulse ' + (durationSec * 0.8).toFixed(1) + 's ease-in-out infinite alternate';
+          }
+
+        } else if (activeEffectId === 'cyber-pulse') {
+          layers.pulseLayer.style.display = 'block';
+          layers.pulseLayer.style.opacity = '1';
+
+          if (layers.beam1 && layers.beam2) {
+            layers.beam1.style.background = 'linear-gradient(90deg, transparent, ' + primaryColor + ', transparent)';
+            layers.beam1.style.boxShadow = '0 0 35px ' + primaryColor;
+            layers.beam1.style.opacity = activeIntensity.toFixed(2);
+            layers.beam1.style.animation = 'cyberPulseTop ' + (durationSec * 0.4).toFixed(1) + 's ease-in-out infinite alternate';
+
+            layers.beam2.style.background = 'linear-gradient(180deg, transparent, ' + secondaryColor + ', transparent)';
+            layers.beam2.style.boxShadow = '0 0 35px ' + secondaryColor;
+            layers.beam2.style.opacity = (activeIntensity * 0.9).toFixed(2);
+            layers.beam2.style.animation = 'cyberPulseRight ' + (durationSec * 0.5).toFixed(1) + 's ease-in-out infinite alternate';
+          }
+
+        } else if (activeEffectId === 'aurora-waves') {
+          layers.ambientLayer.style.display = 'block';
+          layers.ambientLayer.style.opacity = '1';
+          layers.ambientLayer.style.background = 'radial-gradient(ellipse 110% 65% at 50% -10%, ' + primaryColor + ' 0%, ' + secondaryColor + '77 40%, ' + accentColor + '33 70%, transparent 90%)';
+          layers.ambientLayer.style.animation = 'auroraWaveMovement ' + (durationSec * 0.75).toFixed(1) + 's ease-in-out infinite alternate';
+
+        } else if (activeEffectId === 'pure-glass') {
+          // Clean pure glass
+        }
+
+        let styleEl = document.getElementById('openwork-dynamic-overrides');
+        if (!styleEl) {
+          styleEl = document.createElement('style');
+          styleEl.id = 'openwork-dynamic-overrides';
+          document.documentElement.appendChild(styleEl);
+        }
+
+        styleEl.innerHTML = [
+          '.walking-orb { position: absolute; border-radius: 50%; filter: blur(85px); -webkit-filter: blur(85px); will-change: transform; pointer-events: none; }',
+          '#walking-orb-1 { width: 720px; height: 720px; top: -80px; left: -80px; }',
+          '#walking-orb-2 { width: 760px; height: 760px; bottom: -100px; right: -100px; }',
+          '.cyber-beam { position: absolute; pointer-events: none; border-radius: 999px; }',
+          '#cyber-pulse-beam-1 { top: 0; left: 0; right: 0; height: 4px; }',
+          '#cyber-pulse-beam-2 { top: 0; bottom: 0; right: 0; width: 4px; }',
+          '.horizon-base-glow { position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%); width: 100vw; height: 480px; filter: blur(65px); -webkit-filter: blur(65px); pointer-events: none; will-change: transform, opacity; }',
+          '.horizon-radiant-rays { position: absolute; bottom: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; filter: blur(40px); -webkit-filter: blur(40px); will-change: opacity, transform; }',
+          '.celestial-source { position: absolute; top: -70px; right: -70px; width: 720px; height: 720px; border-radius: 50%; filter: blur(75px); -webkit-filter: blur(75px); pointer-events: none; will-change: opacity, transform; }',
+          '.celestial-rays { position: absolute; top: 0; right: 0; width: 100vw; height: 100vh; pointer-events: none; filter: blur(40px); -webkit-filter: blur(40px); will-change: opacity; }',
+          '@keyframes horizonBaseGlowPulse { 0% { transform: translateX(-50%) scaleY(0.95); opacity: ' + (activeIntensity * 1.0).toFixed(2) + '; } 50% { transform: translateX(-50%) scaleY(1.30); opacity: ' + (activeIntensity * 1.45).toFixed(2) + '; } 100% { transform: translateX(-50%) scaleY(0.95); opacity: ' + (activeIntensity * 1.0).toFixed(2) + '; } }',
+          '@keyframes horizonRaysPulse { 0% { opacity: ' + (activeIntensity * 0.70).toFixed(2) + '; transform: scaleY(0.95); } 50% { opacity: ' + (activeIntensity * 1.25).toFixed(2) + '; transform: scaleY(1.18); } 100% { opacity: ' + (activeIntensity * 0.70).toFixed(2) + '; transform: scaleY(0.95); } }',
+          '@keyframes celestialSourceGlow { 0% { transform: scale(0.95); opacity: ' + (activeIntensity * 0.9).toFixed(2) + '; } 50% { transform: scale(1.08); opacity: ' + (activeIntensity * 1.35).toFixed(2) + '; } 100% { transform: scale(0.95); opacity: ' + (activeIntensity * 0.9).toFixed(2) + '; } }',
+          '@keyframes celestialRaysPulse { 0% { opacity: ' + (activeIntensity * 0.65).toFixed(2) + '; transform: rotate(0deg); } 50% { opacity: ' + (activeIntensity * 1.1).toFixed(2) + '; transform: rotate(3deg); } 100% { opacity: ' + (activeIntensity * 0.65).toFixed(2) + '; transform: rotate(0deg); } }',
+          '@keyframes orbWalkOpposite1 { 0% { transform: translate3d(0px, 0px, 0) scale(1); } 25% { transform: translate3d(440px, 160px, 0) scale(1.22); } 50% { transform: translate3d(820px, -20px, 0) scale(0.92); } 75% { transform: translate3d(320px, 280px, 0) scale(1.20); } 100% { transform: translate3d(640px, 80px, 0) scale(1.06); } }',
+          '@keyframes orbWalkOpposite2 { 0% { transform: translate3d(0px, 0px, 0) scale(1); } 25% { transform: translate3d(-460px, -170px, 0) scale(1.22); } 50% { transform: translate3d(-860px, 40px, 0) scale(0.90); } 75% { transform: translate3d(-340px, -300px, 0) scale(1.26); } 100% { transform: translate3d(-660px, -90px, 0) scale(1.03); } }',
+          '@keyframes cyberPulseTop { 0% { transform: translateX(-60%); opacity: 0.2; } 50% { opacity: 1; } 100% { transform: translateX(60%); opacity: 0.2; } }',
+          '@keyframes cyberPulseRight { 0% { transform: translateY(-60%); opacity: 0.2; } 50% { opacity: 1; } 100% { transform: translateY(60%); opacity: 0.2; } }',
+          '@keyframes auroraWaveMovement { 0% { transform: scaleY(1) translateY(0); filter: hue-rotate(-15deg); } 50% { transform: scaleY(1.3) translateY(20px); filter: hue-rotate(15deg); } 100% { transform: scaleY(1) translateY(0); filter: hue-rotate(-15deg); } }',
+          ':root, [data-theme], [data-color-scheme] {',
+          '  --primary: ' + colors.primary + ' !important;',
+          '  --accent: ' + colors.primary + ' !important;',
+          '  --dls-accent: ' + colors.primary + ' !important;',
+          '  --ring: ' + colors.primary + ' !important;',
+          '}',
+          '#openwork-theme-btn, #openwork-dashboard-btn { color: ' + colors.primary + ' !important; }'
+        ].join(String.fromCharCode(10));
+      }
+
+      function applyTheme(themeId) {
+        isCustomMode = false;
+        activeThemeId = themeId;
+        localStorage.setItem(KEY_CUSTOM_MODE, 'false');
+        localStorage.setItem(KEY_THEME, themeId);
+        updateVisualLayers();
+        updateModalUI();
+      }
+
+      function applyCustomColors(p, s, a) {
+        isCustomMode = true;
+        if (p) customPrimary = p;
+        if (s) customSecondary = s;
+        if (a) customAccent = a;
+        localStorage.setItem(KEY_CUSTOM_MODE, 'true');
+        localStorage.setItem(KEY_CUSTOM_P, customPrimary);
+        localStorage.setItem(KEY_CUSTOM_S, customSecondary);
+        localStorage.setItem(KEY_CUSTOM_A, customAccent);
+        updateVisualLayers();
+        updateModalUI();
+      }
+
+      function applyEffect(effId) {
+        activeEffectId = effId;
+        localStorage.setItem(KEY_EFFECT, effId);
+        updateVisualLayers();
+        updateModalUI();
+      }
+
+      function applySpeed(spd) {
+        activeSpeed = spd;
+        localStorage.setItem(KEY_SPEED, spd);
+        updateVisualLayers();
+        updateModalUI();
+      }
+
+      function applyIntensity(val) {
+        activeIntensity = parseFloat(val);
+        localStorage.setItem(KEY_INTENSITY, activeIntensity.toString());
+        updateVisualLayers();
+        updateModalUI();
+      }
+
+      function updateModalUI() {
+        const modal = document.getElementById('openwork-theme-modal');
+        if (!modal) return;
+
+        const colors = getActiveColors();
+
+        const tabPresets = modal.querySelector('#ow-tab-presets');
+        const tabCustom = modal.querySelector('#ow-tab-custom');
+        const viewPresets = modal.querySelector('#ow-view-presets');
+        const viewCustom = modal.querySelector('#ow-view-custom');
+
+        if (tabPresets && tabCustom && viewPresets && viewCustom) {
+          if (isCustomMode) {
+            tabPresets.style.background = 'transparent';
+            tabPresets.style.color = '#94a3b8';
+            tabCustom.style.background = 'rgba(255, 255, 255, 0.12)';
+            tabCustom.style.color = '#ffffff';
+            viewPresets.style.display = 'none';
+            viewCustom.style.display = 'flex';
+          } else {
+            tabPresets.style.background = 'rgba(255, 255, 255, 0.12)';
+            tabPresets.style.color = '#ffffff';
+            tabCustom.style.background = 'transparent';
+            tabCustom.style.color = '#94a3b8';
+            viewPresets.style.display = 'flex';
+            viewCustom.style.display = 'none';
+          }
+        }
+
+        modal.querySelectorAll('.app-theme-card').forEach(function(card) {
+          const isCur = !isCustomMode && card.dataset.themeId === activeThemeId;
+          card.style.borderColor = isCur ? colors.primary : 'rgba(255, 255, 255, 0.08)';
+          card.style.background = isCur ? 'rgba(255, 255, 255, 0.14)' : 'rgba(255, 255, 255, 0.04)';
+          const check = card.querySelector('.theme-check-icon');
+          if (check) check.style.display = isCur ? 'block' : 'none';
+        });
+
+        modal.querySelectorAll('.app-effect-pill').forEach(function(pill) {
+          const isCurEff = pill.dataset.effectId === activeEffectId;
+          pill.style.borderColor = isCurEff ? colors.primary : 'rgba(255, 255, 255, 0.08)';
+          pill.style.background = isCurEff ? 'rgba(255, 255, 255, 0.16)' : 'rgba(255, 255, 255, 0.04)';
+          pill.style.color = isCurEff ? '#ffffff' : '#94a3b8';
+        });
+
+        modal.querySelectorAll('.app-speed-btn').forEach(function(btn) {
+          const isCurSpd = btn.dataset.speed === activeSpeed;
+          btn.style.borderColor = isCurSpd ? colors.primary : 'rgba(255, 255, 255, 0.08)';
+          btn.style.background = isCurSpd ? 'rgba(255, 255, 255, 0.18)' : 'rgba(255, 255, 255, 0.04)';
+          btn.style.color = isCurSpd ? '#ffffff' : '#94a3b8';
+        });
+
+        const intensityVal = modal.querySelector('#intensity-val-label');
+        if (intensityVal) intensityVal.textContent = Math.round(activeIntensity * 100) + '%';
+      }
+
+      function openThemeModal() {
+        let modal = document.getElementById('openwork-theme-modal');
+        if (modal) {
+          modal.style.display = modal.style.display === 'none' ? 'flex' : 'none';
+          if (modal.style.display === 'flex') updateModalUI();
+          return;
+        }
+
+        modal = document.createElement('div');
+        modal.id = 'openwork-theme-modal';
+        modal.style.cssText = 'position: fixed; top: 46px; left: 16px; width: 420px; max-height: 85vh; background: rgba(13, 17, 24, 0.96); backdrop-filter: blur(45px); -webkit-backdrop-filter: blur(45px); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 16px; box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85); z-index: 2147483647; display: flex; flex-direction: column; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; color: #e6edf3; animation: themeModalFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);';
+
+        let h = '';
+        h += '<div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background: rgba(255, 255, 255, 0.02);">';
+        h += '  <div style="display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 13px;"><span style="font-size: 16px;">⚡</span><span>Controle de Efeitos & Temas (OpenWork)</span></div>';
+        h += '  <button id="close-ow-modal-btn" style="background: transparent; border: none; color: #9198a1; font-size: 16px; cursor: pointer; padding: 4px 8px; border-radius: 4px;">✕</button>';
+        h += '</div>';
+
+        h += '<div style="overflow-y: auto; max-height: calc(85vh - 60px); display: flex; flex-direction: column;">';
+        
+        h += '  <div style="padding: 12px 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background: rgba(0, 0, 0, 0.2);">';
+        h += '    <div style="font-size: 10.5px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px;"><span>Efeito de Energia em Tempo Real</span></div>';
+        h += '    <div id="ow-effects-container" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;"></div>';
+        h += '  </div>';
+
+        h += '  <div style="padding: 12px 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-direction: column; gap: 10px;">';
+        h += '    <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;"><span style="font-size: 11px; font-weight: 600; color: #cbd5e1;">Brilho / Glow:</span><div style="display: flex; align-items: center; gap: 8px; flex: 1; justify-content: flex-end;"><input id="ow-glow-slider" type="range" min="0.20" max="0.95" step="0.05" value="' + activeIntensity + '" style="width: 130px; cursor: pointer;"><span id="intensity-val-label" style="font-size: 11px; font-weight: 600; min-width: 32px; text-align: right; color: var(--primary);">' + Math.round(activeIntensity * 100) + '%</span></div></div>';
+        h += '    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-size: 11px; font-weight: 600; color: #cbd5e1;">Velocidade:</span><div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px;"><button class="app-speed-btn" data-speed="low" style="padding: 4px 6px; border-radius: 6px; font-size: 10px; cursor: pointer; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: #94a3b8;">🐢 Calmo</button><button class="app-speed-btn" data-speed="medium" style="padding: 4px 6px; border-radius: 6px; font-size: 10px; cursor: pointer; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: #94a3b8;">⚡ Fluido</button><button class="app-speed-btn" data-speed="high" style="padding: 4px 6px; border-radius: 6px; font-size: 10px; cursor: pointer; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: #94a3b8;">🚀 Rápido</button><button class="app-speed-btn" data-speed="turbo" style="padding: 4px 6px; border-radius: 6px; font-size: 10px; cursor: pointer; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: #94a3b8;">⚡⚡ Turbo</button></div></div>';
+        h += '  </div>';
+
+        h += '  <div style="padding: 8px 16px; background: rgba(0, 0, 0, 0.3); border-bottom: 1px solid rgba(255, 255, 255, 0.08); display: flex; gap: 6px;"><button id="ow-tab-presets" style="flex: 1; padding: 6px 10px; border-radius: 6px; border: none; font-size: 11.5px; font-weight: 600; cursor: pointer;">🎨 Paletas Presets</button><button id="ow-tab-custom" style="flex: 1; padding: 6px 10px; border-radius: 6px; border: none; font-size: 11.5px; font-weight: 600; cursor: pointer;">✨ Cores Custom</button></div>';
+
+        h += '  <div id="ow-view-presets" style="display: flex; flex-direction: column;"><div id="ow-theme-cards" style="padding: 10px 16px; overflow-y: auto; max-height: 240px; display: flex; flex-direction: column; gap: 6px;"></div></div>';
+
+        h += '  <div id="ow-view-custom" style="display: none; flex-direction: column; padding: 12px 16px 16px 16px; gap: 12px;">';
+        h += '    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">';
+        h += '      <div style="display: flex; flex-direction: column; gap: 4px; background: rgba(255,255,255,0.03); padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);"><span style="font-size: 10px; color: #94a3b8; font-weight: 600;">Luz Principal</span><input id="ow-cp-p" type="color" value="' + customPrimary + '" style="width: 100%; height: 28px; border: none; cursor: pointer; background: transparent;"></div>';
+        h += '      <div style="display: flex; flex-direction: column; gap: 4px; background: rgba(255,255,255,0.03); padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);"><span style="font-size: 10px; color: #94a3b8; font-weight: 600;">Luz Secundária</span><input id="ow-cp-s" type="color" value="' + customSecondary + '" style="width: 100%; height: 28px; border: none; cursor: pointer; background: transparent;"></div>';
+        h += '      <div style="display: flex; flex-direction: column; gap: 4px; background: rgba(255,255,255,0.03); padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);"><span style="font-size: 10px; color: #94a3b8; font-weight: 600;">Destaque</span><input id="ow-cp-a" type="color" value="' + customAccent + '" style="width: 100%; height: 28px; border: none; cursor: pointer; background: transparent;"></div>';
+        h += '    </div>';
+        h += '    <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 10.5px; font-weight: 600; color: #94a3b8;">Paletas Rápidas:</span><div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">';
+        h += QUICK_PALETTES.map(function(qp) { return '<button class="quick-palette-chip" data-p="' + qp.p + '" data-s="' + qp.s + '" data-a="' + qp.a + '" style="display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); cursor: pointer; font-size: 10px; color: #e2e8f0;"><span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:' + qp.p + ';"></span><span>' + qp.name + '</span></button>'; }).join('');
+        h += '    </div></div>';
+        h += '  </div>';
+        h += '</div>';
+
+        modal.innerHTML = h;
+        document.documentElement.appendChild(modal);
+
+        const effectsContainer = modal.querySelector('#ow-effects-container');
+        EFFECTS_LIST.forEach(function(eff) {
+          const pill = document.createElement('button');
+          pill.className = 'app-effect-pill';
+          pill.dataset.effectId = eff.id;
+          pill.style.cssText = 'display: flex; align-items: center; gap: 6px; padding: 7px 10px; border-radius: 8px; font-size: 11px; font-weight: 500; cursor: pointer; text-align: left; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04);';
+          pill.title = eff.desc;
+          pill.innerHTML = '<span>' + eff.icon + '</span><span>' + eff.name + '</span>';
+          pill.addEventListener('click', function() { applyEffect(eff.id); });
+          effectsContainer.appendChild(pill);
+        });
+
+        modal.querySelectorAll('.app-speed-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() { applySpeed(btn.dataset.speed); });
+        });
+
+        const slider = modal.querySelector('#ow-glow-slider');
+        slider.addEventListener('input', function(e) { applyIntensity(e.target.value); });
+
+        const tabPresets = modal.querySelector('#ow-tab-presets');
+        const tabCustom = modal.querySelector('#ow-tab-custom');
+        tabPresets.addEventListener('click', function() { isCustomMode = false; applyTheme(activeThemeId); });
+        tabCustom.addEventListener('click', function() { isCustomMode = true; applyCustomColors(null, null, null); });
+
+        const cpP = modal.querySelector('#ow-cp-p');
+        const cpS = modal.querySelector('#ow-cp-s');
+        const cpA = modal.querySelector('#ow-cp-a');
+        function onColorChange() { applyCustomColors(cpP.value, cpS.value, cpA.value); }
+        cpP.addEventListener('input', onColorChange);
+        cpS.addEventListener('input', onColorChange);
+        cpA.addEventListener('input', onColorChange);
+
+        modal.querySelectorAll('.quick-palette-chip').forEach(function(chip) {
+          chip.addEventListener('click', function() {
+            cpP.value = chip.dataset.p;
+            cpS.value = chip.dataset.s;
+            cpA.value = chip.dataset.a;
+            onColorChange();
           });
-          container.insertBefore(btn, container.firstChild);
+        });
+
+        const themeCardsContainer = modal.querySelector('#ow-theme-cards');
+        THEMES_LIST.forEach(function(theme) {
+          const card = document.createElement('div');
+          card.className = 'app-theme-card';
+          card.dataset.themeId = theme.id;
+          card.style.cssText = 'display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-radius: 8px; cursor: pointer; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04);';
+          const swatches = (theme.accents || [theme.primary, theme.keyword]).map(function(c) {
+            return '<span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:' + c + ';"></span>';
+          }).join(' ');
+          card.innerHTML = '<div style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 12px; font-weight: 500; color: #f1f5f9;">' + theme.name + '</span><div style="display: flex; gap: 4px;">' + swatches + '</div></div><svg class="theme-check-icon" style="display: none; color: ' + theme.primary + '; width: 13px; height: 13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+          card.addEventListener('click', function() { applyTheme(theme.id); });
+          themeCardsContainer.appendChild(card);
+        });
+
+        modal.querySelector('#close-ow-modal-btn').addEventListener('click', function() { modal.style.display = 'none'; });
+        document.addEventListener('click', function(e) {
+          if (modal.style.display !== 'none' && !modal.contains(e.target) && !e.target.closest('#openwork-theme-btn')) {
+            modal.style.display = 'none';
+          }
+        });
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && modal.style.display !== 'none') { modal.style.display = 'none'; }
+        });
+        updateModalUI();
+      }
+
+      window.addEventListener('keydown', function(e) {
+        if ((e.metaKey || e.ctrlKey) && e.shiftKey && (e.key === 'T' || e.key === 't')) {
+          e.preventDefault(); e.stopPropagation(); openThemeModal();
+        }
+      });
+
+      function mountButtons() {
+        const topHeader = document.querySelector('header [class*="actions"]') ||
+                          document.querySelector('header') ||
+                          document.querySelector('nav') ||
+                          document.querySelector('[data-slot="titlebar-actions"]') ||
+                          document.getElementById('opencode-titlebar-right');
+
+        if (topHeader) {
+          if (!document.getElementById('openwork-dashboard-btn')) {
+            const dashBtn = document.createElement('button');
+            dashBtn.id = 'openwork-dashboard-btn';
+            dashBtn.type = 'button';
+            dashBtn.title = 'Abrir Control Center (http://localhost:3030/)';
+            dashBtn.className = 'ow-native-titlebar-btn';
+            dashBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5"></rect></svg><span>Dashboard</span>';
+            dashBtn.addEventListener('click', function(e) {
+              e.stopPropagation(); e.preventDefault();
+              window.open('http://localhost:3030/', '_blank');
+            });
+            topHeader.insertBefore(dashBtn, topHeader.firstChild);
+          }
+
+          if (!document.getElementById('openwork-theme-btn')) {
+            const themeBtn = document.createElement('button');
+            themeBtn.id = 'openwork-theme-btn';
+            themeBtn.type = 'button';
+            themeBtn.title = 'Personalizar Efeitos & Cores (Cmd+Shift+T)';
+            themeBtn.className = 'ow-native-titlebar-btn';
+            themeBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg><span>Efeitos</span>';
+            themeBtn.addEventListener('click', function(e) {
+              e.stopPropagation(); e.preventDefault();
+              openThemeModal();
+            });
+            const dashBtn = document.getElementById('openwork-dashboard-btn');
+            if (dashBtn && dashBtn.parentNode) {
+              dashBtn.parentNode.insertBefore(themeBtn, dashBtn.nextSibling);
+            } else {
+              topHeader.appendChild(themeBtn);
+            }
+          }
         }
       }
-      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mountBtn);
-      else mountBtn();
-      setInterval(mountBtn, 1000);
+
+      updateVisualLayers();
+      setInterval(function() {
+        getOrCreateVisualLayers();
+        mountButtons();
+      }, 1000);
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          getOrCreateVisualLayers();
+          mountButtons();
+        });
+      } else {
+        getOrCreateVisualLayers();
+        mountButtons();
+      }
     })();
   </script>
-`;
+  `;
+}
 
 function patchHtml(filePath) {
   if (!fs.existsSync(filePath)) return;
-  let html = fs.readFileSync(filePath, 'utf8');
-  html = html.replace(/<style id="translucid-openwork-glass">[\s\S]*?<\/style>/g, '');
-  html = html.replace(/<script id="ow-dashboard-script">[\s\S]*?<\/script>/g, '');
-  html = html.replace(/<script id="translucid-theme-picker-script">[\s\S]*?<\/script>/g, '');
+  let html = fs.readFileSync(filePath, "utf8");
+  html = html.replace(/<style id="translucid-openwork-glass">[\s\S]*?<\/style>/g, "");
+  html = html.replace(/<style id="openwork-dynamic-overrides">[\s\S]*?<\/style>/g, "");
+  html = html.replace(/<script id="ow-dashboard-script">[\s\S]*?<\/script>/g, "");
+  html = html.replace(/<script id="translucid-theme-picker-script">[\s\S]*?<\/script>/g, "");
+  html = html.replace(/<script id="translucid-openwork-master-script">[\s\S]*?<\/script>/g, "");
 
   html = html.replace(/<html([^>]*)>/i, '<html$1 class="dark openwork-electron openwork-platform-mac" data-theme="dark" style="background-color: transparent !important; background: transparent !important; color-scheme: dark !important;">');
   html = html.replace(/<body([^>]*)>/i, '<body$1 class="dark bg-transparent text-white" data-theme="dark" style="background: transparent !important; background-color: transparent !important; color-scheme: dark !important;">');
 
-  html = html.replace('</head>', `${customGlassStyle}\n</head>`);
-  const themePickerScript = themePicker.generateScript('openwork');
-  html = html.replace('</body>', `${openworkDashboardScript}\n${themePickerScript}\n</body>`);
+  html = html.replace("</head>", customGlassStyle + "\n</head>");
+  const masterScript = generateOpenWorkEngineScript();
+  html = html.replace("</body>", masterScript + "\n</body>");
 
-  fs.writeFileSync(filePath, html, 'utf8');
-  console.log('✅ HTML Crystal Translucid + Theme Picker injetado:', filePath);
+  fs.writeFileSync(filePath, html, "utf8");
+  console.log("✅ HTML Super Premium Glass + Multi-Effects injetado:", filePath);
 }
 
 function patchMainJs(filePath) {
   if (!fs.existsSync(filePath)) return;
-  let code = fs.readFileSync(filePath, 'utf8');
+  let code = fs.readFileSync(filePath, "utf8");
 
-  // Limpa duplicidades
   code = code.replace(/\n\s*mainWindow\?\.setVibrancy\(macosVibrancyForCurrentTheme\(\)\);\n\s*mainWindow\?\.setBackgroundColor\("#00000001"\);\n\s*return true;\n\}/g, "");
   code = code.replace(/\n\s*mainWindow\?\.setVibrancy\(macosVibrancyForCurrentTheme\(\)\);\n\s*mainWindow\?\.setBackgroundColor\("#00000000"\);\n\s*return true;\n\}/g, "");
   code = code.replace(/\n\s*mainWindow\?\.setVibrancy\("under-window"\);\n\s*mainWindow\?\.setBackgroundColor\("#00000000"\);\n\s*return true;\n\}/g, "");
@@ -214,13 +723,13 @@ function patchMainJs(filePath) {
   code = code.replace(/backgroundColor:\s*"#00000001"/g, 'backgroundColor: "#00000000"');
   code = code.replace(/titleBarStyle:\s*"hiddenInset"/g, 'titleBarStyle: "hidden"');
 
-  fs.writeFileSync(filePath, code, 'utf8');
+  fs.writeFileSync(filePath, code, "utf8");
 
   try {
     execSync(`node --check "${filePath}"`);
-    console.log('✅ JavaScript Main process validado:', filePath);
+    console.log("✅ JavaScript Main process validado:", filePath);
   } catch (err) {
-    console.error('❌ Erro de sintaxe:', err.message);
+    console.error("❌ Erro de sintaxe:", err.message);
     process.exit(1);
   }
 }
@@ -233,11 +742,11 @@ function findAndPatch(dir) {
     if (entry.isDirectory()) {
       findAndPatch(fullPath);
     } else if (entry.isFile()) {
-      if (entry.name === 'index.html') patchHtml(fullPath);
-      else if (entry.name === 'main.mjs' || entry.name === 'main.js') patchMainJs(fullPath);
+      if (entry.name === "index.html") patchHtml(fullPath);
+      else if (entry.name === "main.mjs" || entry.name === "main.js") patchMainJs(fullPath);
     }
   }
 }
 
 findAndPatch(targetDir);
-console.log('🎉 [OpenWork Engine] Crystal Translucid + Theme Picker concluído!');
+console.log("🎉 [OpenWork Engine] Super Premium Glass + Multi-Effects concluído!");
