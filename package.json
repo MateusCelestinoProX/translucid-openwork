@@ -1,0 +1,14 @@
+{
+  "name": "translucid-open-code",
+  "version": "1.0.0",
+  "description": "Transform OpenCode Desktop into a pure liquid translucent glass aesthetic on macOS",
+  "type": "commonjs",
+  "scripts": {
+    "apply": "./apply-translucid.sh",
+    "restore": "./restore-original.sh",
+    "dashboard": "cd dashboard && bun run server.ts"
+  },
+  "keywords": ["opencode", "glassmorphism", "translucent", "electron", "macos"],
+  "author": "Mateus Celestino",
+  "license": "MIT"
+}

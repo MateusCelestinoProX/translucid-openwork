@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Translucid Suite Control Center · OpenWork & OpenCode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <div id="ambient-overlay"></div>
+
+  <div class="app-container">
+    
+    <!-- HEADER -->
+    <header class="app-header glass-card">
+      <div class="header-brand">
+        <div class="brand-badge">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <h1>Translucid Suite Control Center (OpenWork & OpenCode)</h1>
+          <p class="brand-subtitle">Full Crews · Multi-Agent Orquestrado &amp; Telemetria</p>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <div class="live-pill" id="livePill">
+          <span class="live-dot"></span>
+          <span class="live-text">OPENCODE LIVE</span>
+        </div>
+
+        <!-- BACKGROUND THEME WIDGET DROPDOWN -->
+        <div class="theme-widget-container">
+          <button class="btn-theme-widget" onclick="toggleThemeDropdown(event)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"></path>
+            </svg>
+            <span id="currentThemeLabel">Midnight Thunder</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m6 9 6 6 6-6"></path>
+            </svg>
+          </button>
+
+          <div class="theme-dropdown-menu glass-card" id="themeDropdownMenu">
+            <div class="dropdown-header-title">Paleta Dither</div>
+            <button class="theme-option-btn active" data-mode="5" onclick="selectDitherTheme(5, 'Midnight Thunder', this)">
+              <span class="theme-dot" style="background: linear-gradient(135deg, #0284c7, #38bdf8, #ffffff); box-shadow: 0 0 8px #38bdf8;"></span>
+              ⚡ Midnight Thunder (Tempestade)
+            </button>
+            <button class="theme-option-btn" data-mode="6" onclick="selectDitherTheme(6, 'Cyberpunk Neon', this)">
+              <span class="theme-dot" style="background: linear-gradient(135deg, #f43f5e, #a855f7, #06b6d4);"></span>
+              🌆 Cyberpunk Neon Dream
+            </button>
+            <button class="theme-option-btn" data-mode="7" onclick="selectDitherTheme(7, 'Crimson Eclipse', this)">
+              <span class="theme-dot" style="background: linear-gradient(135deg, #e11d48, #ea580c, #facc15);"></span>
+              🩸 Crimson Blood Eclipse
+            </button>
+            <button class="theme-option-btn" data-mode="1" onclick="selectDitherTheme(1, 'Chroma Rainbow', this)">
+              <span class="theme-dot" style="background: linear-gradient(135deg, #ec4899, #6366f1, #06b6d4);"></span>
+              🌈 Chroma Rainbow
+            </button>
+            <button class="theme-option-btn" data-mode="2" onclick="selectDitherTheme(2, 'Acid Emerald', this)">
+              <span class="theme-dot" style="background: #10b981;"></span>
+              🍃 Acid Emerald
+            </button>
+            <button class="theme-option-btn" data-mode="3" onclick="selectDitherTheme(3, 'Nebula Violet', this)">
+              <span class="theme-dot" style="background: #a855f7;"></span>
+              🔮 Nebula Violet
+            </button>
+            <button class="theme-option-btn" data-mode="4" onclick="selectDitherTheme(4, 'Solar Sunset', this)">
+              <span class="theme-dot" style="background: #f59e0b;"></span>
+              🔥 Solar Sunset
+            </button>
+            <button class="theme-option-btn" data-mode="0" onclick="selectDitherTheme(0, 'Cyber Indigo', this)">
+              <span class="theme-dot" style="background: #6366f1;"></span>
+              💠 Cyber Indigo
+            </button>
+          </div>
+        </div>
+
+        <button class="btn-cta" onclick="openCreateCrewModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Nova Crew
+        </button>
+      </div>
+    </header>
+
+    <!-- NAVIGATION TABS -->
+    <nav class="nav-tabs glass-card">
+      <button class="tab-btn" onclick="switchTab('overview')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+        Centro de Comando
+      </button>
+
+      <button class="tab-btn active" onclick="switchTab('crews')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+        Crews
+      </button>
+
+      <button class="tab-btn" onclick="switchTab('agents')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        Estúdio de Agentes
+      </button>
+
+      <button class="tab-btn" onclick="switchTab('skills')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="4 17 10 11 4 5"></polyline>
+          <line x1="12" y1="19" x2="20" y2="19"></line>
+        </svg>
+        Estúdio de Skills
+      </button>
+
+      <button class="tab-btn" onclick="switchTab('logs')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        Logs &amp; Diagnósticos
+      </button>
+
+      <button class="tab-btn" onclick="switchTab('mcps')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+        MCPs
+      </button>
+    </nav>
+
+    <!-- TAB 1: CENTRO DE COMANDO -->
+    <section id="tab-overview" class="tab-content">
+      <div class="metrics-grid">
+        <div class="metric-card glass-card">
+          <div class="metric-header">
+            <span class="metric-title">Sessões Registradas</span>
+            <span class="metric-tag">SQLite</span>
+          </div>
+          <div class="metric-value" id="statSessions">--</div>
+          <div class="metric-footer">~/.local/share/opencode/opencode.db</div>
+        </div>
+
+        <div class="metric-card glass-card">
+          <div class="metric-header">
+            <span class="metric-title">Tokens Processados</span>
+            <span class="metric-tag">Total</span>
+          </div>
+          <div class="metric-value" id="statTokens">--</div>
+          <div class="metric-footer">Entrada + Saída + Raciocínio</div>
+        </div>
+
+        <div class="metric-card glass-card">
+          <div class="metric-header">
+            <span class="metric-title">Cache Read Tokens</span>
+            <span class="metric-tag">Cache Hit</span>
+          </div>
+          <div class="metric-value" id="statCache">--</div>
+          <div class="metric-footer">Economia inteligente de contexto</div>
+        </div>
+
+        <div class="metric-card glass-card">
+          <div class="metric-header">
+            <span class="metric-title">OmniRoute Gateway</span>
+            <span class="metric-tag status-online">Ativo</span>
+          </div>
+          <div class="metric-value" style="font-size: 22px; color: #10b981;">127.0.0.1:20128</div>
+          <div class="metric-footer">Proxy Local Conectado</div>
+        </div>
+
+        <div class="metric-card glass-card">
+          <div class="metric-header">
+            <span class="metric-title">OpenCode Server</span>
+            <span class="metric-tag" id="opencodeServerTag">Verificando...</span>
+          </div>
+          <div class="metric-value" id="statOpencodeVersion" style="font-size: 18px; color: #94a3b8;">--</div>
+          <div class="metric-footer" id="statOpencodeUrl">localhost:4040</div>
+        </div>
+      </div>
+
+      <div class="agent-quickbar glass-card">
+        <div class="quickbar-header">
+          <span class="quickbar-title">Especialistas em Prontidão</span>
+          <span class="quickbar-badge">🏛️ Presidente, Crews &amp; Custom</span>
+        </div>
+        <div class="quickbar-chips-list" id="quickbarChipsList"></div>
+      </div>
+
+      <div class="dual-section-grid">
+        <div class="panel glass-card">
+          <div class="panel-header">
+            <div class="panel-title-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <h3>Árvore de Sessões &amp; Delegação</h3>
+            </div>
+            <div style="display: flex; gap: 6px; align-items: center;">
+              <input type="text" id="sessionFilterInput" class="filter-search-input" style="padding: 3px 8px; font-size: 11px; width: 140px;" placeholder="Filtrar sessões..." oninput="renderTelemetry()">
+              <span class="badge-tech">HIERARCHY TREE</span>
+            </div>
+          </div>
+          <div class="sessions-list" id="sessionsList"></div>
+        </div>
+
+        <div class="panel glass-card">
+          <div class="panel-header">
+            <div class="panel-title-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+              <h3>Terminal de Execuções &amp; Respostas</h3>
+            </div>
+            <div style="display:flex;gap:6px;align-items:center;">
+              <button class="btn-secondary" style="font-size: 9.5px; padding: 2px 7px;" onclick="clearLiveEventsFeed()">Limpar</button>
+              <button class="btn-secondary" id="btnToggleFeedAutoScroll" style="font-size: 9.5px; padding: 2px 7px;" onclick="toggleFeedAutoScroll()">Auto-Scroll: ON</button>
+              <span class="badge-tech" id="sseStatusBadge" style="background:rgba(245,158,11,0.15);color:#fde68a;border-color:rgba(245,158,11,0.4);">SSE CONNECTING</span>
+            </div>
+          </div>
+          <div class="events-feed" id="overviewEventsFeed"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: CREWS (EQUIPES FULL CREWS & PRESIDENTE) -->
+    <section id="tab-crews" class="tab-content active">
+      <div class="section-title-bar">
+        <div>
+          <h2>Crews &amp; Equipes Multi-Agent (Full Crews)</h2>
+          <p>Estrutura nativa de alta performance: 🏛️ Presidente Supremo, Mestres, Subagentes, Mural de Mídias no Finder, Skills e MCPs</p>
+        </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button class="btn-secondary" onclick="openCrewAgentModal('none', 'presidente')">
+            ⚙️ Configurar Presidente
+          </button>
+          <button class="btn-secondary" onclick="openPresidentDirectiveModal()">
+            🏛️ Diretriz Presidencial
+          </button>
+          <button class="btn-cta" onclick="openCreateCrewModal()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Nova Crew
+          </button>
+        </div>
+      </div>
+
+      <!-- HUB DO PRESIDENTE (LÍDER DOS LÍDERES) -->
+      <div id="presidentHubContainer" style="margin-bottom: 20px;">
+        <!-- Renderizado dinamicamente via JS -->
+      </div>
+
+      <div class="crews-wrapper" id="crewsContainerGrid">
+        <!-- Renderizado dinamicamente via JS -->
+      </div>
+    </section>
+
+    <!-- TAB 3: ESTÚDIO DE AGENTES -->
+    <section id="tab-agents" class="tab-content">
+      <div class="section-title-bar">
+        <div>
+          <h2>Panteão &amp; Todos os Agentes OpenCode</h2>
+          <p>Todos os agentes (.md nativos, Equipes Full Crews e Custom independentes)</p>
+        </div>
+        <button class="btn-cta" onclick="openCreateCrewAgentModal('none')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Criar Agente
+        </button>
+      </div>
+
+      <div class="skills-filter-bar glass-card">
+        <div class="skills-search-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="agentsSearchInput" class="filter-search-input" placeholder="Buscar entre todos os agentes..." oninput="applyAgentsFilter()">
+        </div>
+
+        <div class="skills-view-controls">
+          <div class="filter-pills-group">
+            <button class="filter-pill active" id="filterAgentAll" onclick="setAgentCategoryFilter('all')">
+              TODOS <span class="pill-count" id="countAgentsAll">0</span>
+            </button>
+            <button class="filter-pill" id="filterAgentInitialPrompt" onclick="setAgentCategoryFilter('initial_prompt')">
+              ⚡ INITIAL PROMPT <span class="pill-count" id="countAgentsInitialPrompt">0</span>
+            </button>
+            <button class="filter-pill" id="filterAgentPresident" onclick="setAgentCategoryFilter('president')">
+              🏛️ PRESIDENTE <span class="pill-count" id="countAgentsPresident">1</span>
+            </button>
+            <button class="filter-pill" id="filterAgentCrew" onclick="setAgentCategoryFilter('crew')">
+              CREWS <span class="pill-count" id="countAgentsCrew">0</span>
+            </button>
+            <button class="filter-pill" id="filterAgentCustom" onclick="setAgentCategoryFilter('custom')">
+              CUSTOM <span class="pill-count" id="countAgentsCustom">0</span>
+            </button>
+            <button class="filter-pill" id="filterAgentCore" onclick="setAgentCategoryFilter('core')">
+              PLUGINS / CORE <span class="pill-count" id="countAgentsCore">0</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-grid" id="agentCardsGrid"></div>
+    </section>
+
+    <!-- TAB 4: ESTÚDIO DE SKILLS -->
+    <section id="tab-skills" class="tab-content">
+      <div class="section-title-bar">
+        <div>
+          <h2>Estúdio de Habilidades (Skills)</h2>
+          <p>Instruções modulares Markdown carregadas sob demanda pelos agentes e equipes</p>
+        </div>
+        <button class="btn-cta" onclick="openCreateSkillModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Nova Skill
+        </button>
+      </div>
+
+      <div class="skills-filter-bar glass-card">
+        <div class="skills-search-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="skillsSearchInput" class="filter-search-input" placeholder="Buscar entre as habilidades..." oninput="applySkillsFilter()">
+        </div>
+
+        <div class="skills-view-controls">
+          <div class="filter-pills-group">
+            <button class="filter-pill active" id="filterSkillAll" onclick="setSkillCategoryFilter('all')">
+              TODAS <span class="pill-count" id="countSkillsAll">0</span>
+            </button>
+            <button class="filter-pill" id="filterSkillCrew" onclick="setSkillCategoryFilter('crew')">
+              CREWS <span class="pill-count" id="countSkillsCrew">0</span>
+            </button>
+            <button class="filter-pill" id="filterSkillCustom" onclick="setSkillCategoryFilter('custom')">
+              CUSTOM <span class="pill-count" id="countSkillsCustom">0</span>
+            </button>
+            <button class="filter-pill" id="filterSkillCore" onclick="setSkillCategoryFilter('core')">
+              PLUGINS <span class="pill-count" id="countSkillsCore">0</span>
+            </button>
+          </div>
+
+          <div class="view-toggle-group">
+            <button class="view-toggle-btn active" id="btnViewGrid" onclick="setSkillsViewMode('grid')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+              Grade
+            </button>
+            <button class="view-toggle-btn" id="btnViewList" onclick="setSkillsViewMode('list')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="8" y1="6" x2="21" y2="6"></line>
+                <line x1="8" y1="12" x2="21" y2="12"></line>
+                <line x1="8" y1="18" x2="21" y2="18"></line>
+                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+              </svg>
+              Lista
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-grid" id="skillsCardsGrid"></div>
+      <div class="skills-list-container glass-card" id="skillsListContainer" style="display: none;"></div>
+    </section>
+
+    <!-- TAB 5: LOGS & DIAGNÓSTICOS -->
+    <section id="tab-logs" class="tab-content">
+      <div class="section-title-bar">
+        <div>
+          <h2>Logs &amp; Diagnósticos do Sistema</h2>
+          <p>Registro unificado de chamadas, execuções de tarefas e eventos SSE</p>
+        </div>
+        <button class="btn-secondary" onclick="fetchLogsData()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+          </svg>
+          Atualizar
+        </button>
+      </div>
+
+      <div class="logs-filter-bar glass-card">
+        <div class="filter-pills-group">
+          <button class="filter-pill active" onclick="setLogCategoryFilter('all')">
+            TODOS <span class="pill-count" id="countAll">0</span>
+          </button>
+          <button class="filter-pill success" onclick="setLogCategoryFilter('success')">
+            SUCESSO <span class="pill-count" id="countSuccess">0</span>
+          </button>
+          <button class="filter-pill error" onclick="setLogCategoryFilter('error')">
+            ERROS <span class="pill-count" id="countError">0</span>
+          </button>
+          <button class="filter-pill warn" onclick="setLogCategoryFilter('warn')">
+            ALERTAS <span class="pill-count" id="countWarn">0</span>
+          </button>
+          <button class="filter-pill info" onclick="setLogCategoryFilter('info')">
+            EXECUÇÃO <span class="pill-count" id="countInfo">0</span>
+          </button>
+        </div>
+
+        <div class="filter-inputs-group">
+          <input type="text" id="logSearchInput" class="filter-search-input" placeholder="Filtrar por texto..." oninput="applyLogFilters()">
+          <select id="logAgentFilterSelect" class="filter-select" onchange="applyLogFilters()">
+            <option value="all">Todos os Agentes</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="logs-container glass-card" id="fullLogsContainer"></div>
+    </section>
+
+    <!-- TAB 6: MCPs -->
+    <section id="tab-mcps" class="tab-content">
+      <div class="section-title-bar">
+        <div>
+          <h2>MCP Servers</h2>
+          <p>Model Context Protocol servers configurados e conectados em tempo real</p>
+        </div>
+        <span class="badge-tech" id="mcpCountBadge">0 servidores</span>
+      </div>
+
+      <div class="skills-filter-bar glass-card" style="margin-bottom: 16px;">
+        <div class="skills-search-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="mcpSearchInput" class="filter-search-input" placeholder="Buscar servidores MCP..." oninput="renderMCPsTab()">
+        </div>
+
+        <div class="skills-view-controls">
+          <div class="filter-pills-group">
+            <button class="filter-pill active" id="filterMcpAll" onclick="setMcpCategoryFilter('all')">
+              TODOS <span class="pill-count" id="countMcpsAll">0</span>
+            </button>
+            <button class="filter-pill" id="filterMcpCrew" onclick="setMcpCategoryFilter('crew')">
+              CREWS <span class="pill-count" id="countMcpsCrew">0</span>
+            </button>
+            <button class="filter-pill" id="filterMcpCustom" onclick="setMcpCategoryFilter('custom')">
+              CUSTOM <span class="pill-count" id="countMcpsCustom">0</span>
+            </button>
+            <button class="filter-pill" id="filterMcpCore" onclick="setMcpCategoryFilter('core')">
+              PLUGINS <span class="pill-count" id="countMcpsCore">0</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-grid" id="mcpCardsGrid"></div>
+    </section>
+
+  </div>
+
+  <!-- =========================================================
+       MODAL: CRIAR NOVA CREW
+       ========================================================= -->
+  <div class="modal-backdrop" id="createCrewModal" style="display: none;">
+    <div class="modal-card glass-card modal-large" style="max-width: 680px;">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <div class="modal-icon-badge" style="background: rgba(168, 85, 247, 0.2); color: #c084fc;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <h3>Criar Nova Crew (Equipe)</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeCreateCrewModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-field">
+            <label>Nome da Equipe</label>
+            <input type="text" id="modalCrewName" class="form-input" placeholder="ex: Marketing, Vendas, Engenharia" oninput="autoFillCrewId()">
+          </div>
+          <div class="form-field">
+            <label>Identificador de Pasta (kebab-case)</label>
+            <input type="text" id="modalCrewId" class="form-input" placeholder="ex: marketing, vendas" oninput="this.dataset.manual = 'true'">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Propósito &amp; Descrição da Equipe</label>
+          <textarea id="modalCrewDesc" class="form-input" style="min-height: 70px;" placeholder="Qual a missão e escopo dessa equipe autônoma?"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Líder / Agente Mestre (@handle)</label>
+            <input type="text" id="modalCrewLeader" class="form-input" placeholder="ex: cmo, sales-leader">
+          </div>
+          <div class="form-field">
+            <label>Preset de Modelo Padrão</label>
+            <select id="modalCrewPreset" class="form-input">
+              <option value="omniroute/combo/code">⚡ Super Combo Programação</option>
+              <option value="omniroute/combo/chat-multimodal">👁️ Super Combo Multimodal</option>
+              <option value="omniroute/antigravity/claude-sonnet-4-6">Claude Sonnet 4.6</option>
+              <option value="omniroute/antigravity/gemini-3.1-pro-low">Gemini 3.1 Pro 2M</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeCreateCrewModal()">Cancelar</button>
+        <button class="btn-cta" onclick="submitCreateCrewForm()">Criar Estrutura de Pastas da Crew</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL: EDITAR CREW EXISTENTE
+       ========================================================= -->
+  <div class="modal-backdrop" id="editCrewModal" style="display: none;">
+    <div class="modal-card glass-card modal-large" style="max-width: 680px;">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <div class="modal-icon-badge" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+          </div>
+          <h3>Editar Equipe</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeEditCrewModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <input type="hidden" id="editCrewId">
+
+        <div class="form-field">
+          <label>Nome da Equipe</label>
+          <input type="text" id="editCrewName" class="form-input">
+        </div>
+
+        <div class="form-field">
+          <label>Propósito &amp; Descrição</label>
+          <textarea id="editCrewDesc" class="form-input" style="min-height: 70px;"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Líder da Equipe (@handle)</label>
+            <input type="text" id="editCrewLeader" class="form-input">
+          </div>
+          <div class="form-field">
+            <label>Preset de Modelo</label>
+            <select id="editCrewPreset" class="form-input">
+              <option value="omniroute/combo/code">⚡ Super Combo Programação</option>
+              <option value="omniroute/combo/chat-multimodal">👁️ Super Combo Multimodal</option>
+              <option value="omniroute/antigravity/claude-sonnet-4-6">Claude Sonnet 4.6</option>
+              <option value="omniroute/antigravity/gemini-3.1-pro-low">Gemini 3.1 Pro 2M</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeEditCrewModal()">Cancelar</button>
+        <button class="btn-cta" onclick="submitEditCrewForm()">Salvar Alterações</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL: DIRETRIZ PRESIDENCIAL GLOBAL
+       ========================================================= -->
+  <div class="modal-backdrop" id="presidentDirectiveModal" style="display: none;">
+    <div class="modal-card glass-card modal-large" style="max-width: 640px; border-color: rgba(245, 158, 11, 0.4);">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <div class="modal-icon-badge" style="background: rgba(245, 158, 11, 0.2); color: #fde047; font-size: 22px;">
+            🏛️
+          </div>
+          <div>
+            <h3>Diretriz Presidencial · Despacho Global</h3>
+            <span style="font-size: 11px; color: var(--text-dim);">Comando executivo supremo transmitido simultaneamente a todos os Líderes de Equipe</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closePresidentDirectiveModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-field">
+          <label>Instrução / Macro Objetivo Estratégico do Presidente</label>
+          <textarea id="presidentDirectivePrompt" class="form-input textarea-code" style="min-height: 120px;" placeholder="ex: Alinhar meta trimestral de conversão: Vendas prepara novas ofertas, Marketing escala tráfego orgânico e Engenharia reforça infraestrutura de tracking..."></textarea>
+        </div>
+
+        <div style="padding: 12px 14px; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 10px; font-size: 11.5px; color: #fde68a;">
+          ⚡ <strong>Efeito Imediato:</strong> Ao despachar, cada líder de esquadrão (@sales-leader, @cmo, @tech-lead) receberá a diretriz em sua sessão OpenCode e coordenará seus respectivos servos subordinados.
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closePresidentDirectiveModal()">Cancelar</button>
+        <button class="btn-cta" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #000; font-weight: 800;" onclick="submitPresidentDirective()">
+          ⚡ Despachar Diretriz a Todos os Líderes
+        </button>
+      </div>
+    </div>
+  </div>
+            <label>Nome da Equipe</label>
+            <input type="text" id="modalCrewName" class="form-input" placeholder="ex: Marketing, Vendas, Engenharia" oninput="autoFillCrewId()">
+          </div>
+          <div class="form-field">
+            <label>Identificador (Pasta / Slug)</label>
+            <input type="text" id="modalCrewId" class="form-input" placeholder="ex: marketing, vendas, dev-ops">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Descrição e Objetivo da Crew</label>
+          <input type="text" id="modalCrewDesc" class="form-input" placeholder="ex: Esquadrão focado em aquisição, campanhas e funis">
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Líder Inicial (@handle opcional)</label>
+            <input type="text" id="modalCrewLeader" class="form-input" placeholder="ex: cmo, tech-lead">
+          </div>
+          <div class="form-field">
+            <label>Preset de Modelos</label>
+            <select id="modalCrewPreset" class="form-input">
+              <option value="omniroute">OmniRoute (Super Combo Programação)</option>
+              <option value="openai">OpenAI High Reasoning</option>
+              <option value="claude">Anthropic Claude</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="padding: 12px; background: rgba(0,0,0,0.3); border: 1px dashed rgba(255,255,255,0.15); border-radius: 8px; font-size: 11.5px; color: var(--text-dim);">
+          📁 <strong>Estrutura gerada automaticamente:</strong><br>
+          <code style="color: #c084fc;">full crews/&lt;crew-id&gt;/{agents, skills, mural/media, mcp, crew.json}</code>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeCreateCrewModal()">Cancelar</button>
+        <button class="btn-cta" onclick="submitCreateCrewForm()">Criar Equipe</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL: WORKSTATION FULL-SCREEN DE CONFIGURAÇÃO DO AGENTE
+       ========================================================= -->
+  <div class="modal-backdrop" id="crewAgentModal" style="display: none; z-index: 2200;">
+    <div class="modal-card glass-card modal-fullscreen-workstation">
+      <!-- WORKSTATION HEADER (fixo, não rola) -->
+      <div class="workstation-modal-header">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+          <div class="modal-title-group">
+            <div class="modal-icon-badge" id="crewAgentModalIconBadge" style="background: rgba(168, 85, 247, 0.2); color: #c084fc; width: 42px; height: 42px; font-size: 20px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            </div>
+            <div>
+              <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                <h3 id="crewAgentModalTitle" style="font-size: 19px; margin: 0;">Configuração de Agente</h3>
+                <span class="tag-origin crew" id="crewAgentModalCrewBadge" style="font-size: 11px; padding: 2px 10px;">Crew: —</span>
+                <span class="tag-origin core" style="font-size: 10px; padding: 2px 8px;">⚡ OpenCode Squad</span>
+              </div>
+              <span style="font-size: 12px; color: var(--text-dim); margin-top: 3px; display: block;">Estúdio de Engenharia de Agentes Autônomos OpenCode</span>
+            </div>
+          </div>
+          <button class="modal-close-btn" style="width: 32px; height: 32px; font-size: 18px;" onclick="closeCrewAgentModal()">×</button>
+        </div>
+      </div>
+
+      <!-- WORKSTATION 2-COLUMN BODY GRID (só este elemento faz scroll) -->
+      <div class="workstation-body-grid">
+        <input type="hidden" id="modalCrewAgentCrewId">
+        <input type="hidden" id="modalCrewAgentOriginalName">
+
+        <!-- ========================================== -->
+        <!-- COLUNA 1: IDENTIDADE, ARQUITETURA & PROMPT -->
+        <!-- ========================================== -->
+        <div class="workstation-column">
+          <!-- 1. IDENTIDADE BÁSICA & AVATAR -->
+
+          <div class="modal-glass-section">
+            <div style="display: flex; gap: 16px; align-items: center;">
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                <div class="crew-agent-avatar-picker" id="modalCrewAgentAvatarBox" onclick="document.getElementById('crewAgentAvatarInput').click()" style="width: 64px; height: 64px; border-radius: 16px; border: 1.5px solid rgba(255,255,255,0.2); box-shadow: 0 4px 14px rgba(0,0,0,0.4);">
+                  <img id="modalCrewAgentAvatarImg" src="" alt="Avatar" style="display:none; width: 100%; height: 100%; object-fit: cover; border-radius: 14px;">
+                  <span id="modalCrewAgentAvatarPlaceholder" style="font-size: 26px;">👤</span>
+                </div>
+                <input type="file" id="crewAgentAvatarInput" accept="image/*" style="display:none;" onchange="handleAgentAvatarUpload(event)">
+                <button type="button" class="btn-secondary" style="font-size: 9.5px; padding: 3px 8px;" onclick="document.getElementById('crewAgentAvatarInput').click()">Alterar Foto</button>
+              </div>
+
+              <div style="flex: 1; min-width: 0;">
+                <div class="form-row" style="margin-bottom: 8px;">
+                  <div class="form-field" style="margin-bottom: 0;">
+                    <label>Identificador Único (@handle)</label>
+                    <input type="text" id="modalCrewAgentName" class="form-input" placeholder="ex: cmo, tech-lead, backend-dev">
+                  </div>
+                  <div class="form-field" style="margin-bottom: 0;">
+                    <label>Nome de Exibição</label>
+                    <input type="text" id="modalCrewAgentDisplayName" class="form-input" placeholder="ex: Chief Marketing Officer">
+                  </div>
+                </div>
+
+                <div class="form-row" style="margin-top: 8px; margin-bottom: 0;">
+                  <div class="form-field" style="margin-bottom: 0;">
+                    <label>Cargo / Papel na Equipe</label>
+                    <input type="text" id="modalCrewAgentRole" class="form-input" placeholder="ex: Estrategista de aquisição &amp; Líder de Esquadrão">
+                  </div>
+                  <div class="form-field" style="margin-bottom: 0;">
+                    <label>Equipe / Destino do Agente</label>
+                    <select id="modalCrewAgentCrewTarget" class="form-input" onchange="onAgentCrewTargetChange()">
+                      <option value="none">✨ Agente Custom Independente (~/.config/opencode/agents/)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. DESTAQUE MASTER: INITIAL PROMPT MODEL (UNIVERSAL EM TODOS OS AGENTES) -->
+          <div class="modal-glass-section" style="border-color: rgba(99, 102, 241, 0.45); background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%); box-shadow: 0 0 20px rgba(99, 102, 241, 0.12);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+              <div style="flex: 1; min-width: 240px;">
+                <div style="font-size: 13px; font-weight: 800; color: #c7d2fe; display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 16px;">⚡</span>
+                  Initial Prompt Model (Seletor Principal do OpenCode)
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-dim); margin: 4px 0 0 0; line-height: 1.4;">
+                  Habilita este agente no seletor de entrada do OpenCode (ao lado de <code>build</code>, <code>plan</code>, <code>orchestrator</code>, <code>council</code> e <code>presidente</code>).
+                </p>
+              </div>
+              <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; background: rgba(0, 0, 0, 0.5); padding: 8px 16px; border-radius: 24px; border: 1.5px solid rgba(99, 102, 241, 0.6); user-select: none; box-shadow: 0 0 14px rgba(99, 102, 241, 0.25);">
+                <input type="checkbox" id="modalCrewAgentInitialPrompt" style="width: 16px; height: 16px; accent-color: #6366f1;" onchange="onInitialPromptToggleChange()">
+                <span id="initialPromptToggleLabel" style="font-size: 12px; font-weight: 800; color: #a5b4fc;">🔒 Subagente (Background)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 3. HIERARQUIA & OH-MY-OPENCODE SLIM ARCHITECTURE -->
+          <div class="modal-glass-section" style="border-color: rgba(14, 165, 233, 0.35);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <label style="margin: 0; display: flex; align-items: center; gap: 6px; color: #38bdf8; font-weight: 800; font-size: 11.5px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                  <polyline points="2 17 12 22 22 17"></polyline>
+                  <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+                Arquitetura Oh-My-OpenCode Slim (Lane, Permissões &amp; Hierarquia)
+              </label>
+              <span class="badge-tech" style="font-size: 9.5px;">SLIM PROTOCOL</span>
+            </div>
+
+            <div class="form-row" style="margin-bottom: 10px;">
+              <div class="form-field">
+                <label>Papel na Hierarquia</label>
+                <select id="modalCrewAgentType" class="form-input" onchange="toggleHierarchyFields()">
+                  <option value="subagent">↳ Subagente Especialista (Delimitado)</option>
+                  <option value="primary">👑 Agente Mestre / Líder de Equipe</option>
+                  <option value="all">🔄 Híbrido (Líder &amp; Executor)</option>
+                </select>
+              </div>
+
+              <div class="form-field" id="fieldMasterSelectGroup">
+                <label>Mestre / Supervisor Imediato</label>
+                <select id="modalCrewAgentMaster" class="form-input"></select>
+              </div>
+            </div>
+
+            <div class="form-field" id="fieldSubagentsGroup" style="display: none; margin-bottom: 10px;">
+              <label>Subagentes Subordinados Vinculados</label>
+              <div id="modalCrewAgentSubagentsList" class="skills-checkbox-grid" style="max-height: 80px; overflow-y: auto;"></div>
+            </div>
+
+            <div class="form-row" style="margin-bottom: 10px;">
+              <div class="form-field">
+                <label>Raia Técnica / Lane</label>
+                <input type="text" id="modalCrewAgentLane" list="suggestedLanes" class="form-input" placeholder="ex: Architecture, APIs, Growth, UI/UX">
+                <datalist id="suggestedLanes">
+                  <option value="Architecture, risk &amp; review">
+                  <option value="UI/UX Design, styling &amp; micro-interactions">
+                  <option value="Bounded Implementation &amp; Fast Code Edits (Fixer)">
+                  <option value="External Docs &amp; Web Research (Librarian)">
+                  <option value="Fast Codebase Recon &amp; Parallel Search (Explorer)">
+                  <option value="Visual &amp; Multimodal Analysis (Observer)">
+                  <option value="Growth Hacking, SEO &amp; Funnels">
+                  <option value="Direct Sales, Offer Architecture &amp; Copy">
+                  <option value="Backend APIs, Database &amp; Cloud Infra">
+                </datalist>
+              </div>
+
+              <div class="form-field">
+                <label>Nível de Permissões</label>
+                <select id="modalCrewAgentPermissions" class="form-input">
+                  <option value="read_files, write_files">⚡ Leitura &amp; Escrita (read_files, write_files)</option>
+                  <option value="read_files">🔒 Somente Leitura (read_files - Protegido)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field" style="margin-bottom: 0;">
+                <label>Multiplicador de Eficiência (Stats)</label>
+                <input type="text" id="modalCrewAgentStats" class="form-input" placeholder="ex: 5x better decisions, 2x faster edits">
+              </div>
+
+              <div class="form-field" style="margin-bottom: 0;">
+                <label>Variante de Raciocínio (Reasoning Level)</label>
+                <select id="modalCrewAgentVariant" class="form-input">
+                  <option value="default">Default / Automático</option>
+                  <option value="high">🧠 High (Raciocínio Profundo / Deep Thinking)</option>
+                  <option value="thinking">🤔 Thinking Mode (CoT Extendido)</option>
+                  <option value="medium">⚖️ Medium (Balanceado)</option>
+                  <option value="low">⚡ Low (Ultra Rápido / Baixo Custo)</option>
+                  <option value="max">🔥 Max (Capacidade Máxima)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. CONTRATO DE DELEGAÇÃO DO ORQUESTRADOR -->
+          <div class="modal-glass-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <label style="margin: 0; font-size: 11.5px; color: #cbd5e1; font-weight: 700;">Contrato de Roteamento / Delegação (orchestratorPrompt)</label>
+              <button type="button" class="btn-secondary" style="font-size: 9.5px; padding: 3px 8px; color: #38bdf8; border-color: rgba(14, 165, 233, 0.4);" onclick="generateAgentOrchestratorPromptInModal()">
+                ⚡ Gerar Contrato Automaticamente
+              </button>
+            </div>
+            <textarea id="modalCrewAgentOrchestratorPrompt" class="form-input textarea-code" style="min-height: 95px; font-size: 11px; line-height: 1.4;" placeholder="- Lane: ...&#10;- Role: ...&#10;- Delegate when: ...&#10;- Don't delegate when: ...&#10;- Rule of thumb: ..."></textarea>
+          </div>
+
+          <!-- 5. PROMPT MARKDOWN DO AGENTE -->
+          <div class="modal-glass-section" style="margin-bottom: 0;">
+            <div class="editor-header-actions">
+              <label style="font-size: 11.5px; font-weight: 700;">Instruções de Sistema / Prompt Markdown (agent.md)</label>
+              <button type="button" class="btn-secondary" style="font-size: 9.5px; padding: 3px 8px;" onclick="insertCrewAgentPromptTemplate()">Inserir Template</button>
+            </div>
+            <textarea id="modalCrewAgentPrompt" class="form-input textarea-code" style="min-height: 150px; font-size: 11.5px;" placeholder="# Diretrizes operacionais deste especialista..."></textarea>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- COLUNA 2: RUNTIME, MODELO, SKILLS, MCPs & AGENDAMENTO     -->
+        <!-- ========================================================= -->
+        <div class="workstation-column">
+          <!-- 1. MODELO LLM & DIRETÓRIO DE TRABALHO -->
+          <div class="modal-glass-section">
+            <div class="form-row">
+              <div class="form-field" style="margin-bottom: 0;">
+                <label>Modelo LLM (OmniRoute)</label>
+                <select id="modalCrewAgentModel" class="form-input"></select>
+              </div>
+              <div class="form-field" style="margin-bottom: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                  <label style="margin: 0;">Working Directory</label>
+                  <button type="button" class="btn-secondary" style="font-size: 9px; padding: 2px 7px;" onclick="chooseAgentWorkingDir()">
+                    📂 Finder
+                  </button>
+                </div>
+                <input type="text" id="modalCrewAgentCustomDir" class="form-input" placeholder="ex: full crews/marketing/agents/cmo">
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. HABILIDADES (SKILLS) & FERRAMENTAS MCP -->
+          <div class="modal-glass-section">
+            <div class="form-row">
+              <div class="form-field" style="margin-bottom: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                  <label style="margin:0; font-weight: 700;">Habilidades (Skills)</label>
+                  <button type="button" class="btn-secondary" style="font-size: 9px; padding: 2px 7px;" onclick="openCreateCrewSkillForAgent()">+ Skill Privada</button>
+                </div>
+                <div class="skills-checkbox-grid" id="modalCrewAgentSkillsContainer" style="max-height: 120px; overflow-y: auto;"></div>
+              </div>
+
+              <div class="form-field" style="margin-bottom: 0;">
+                <label style="font-weight: 700; margin-bottom: 6px;">Ferramentas MCP</label>
+                <div class="skills-checkbox-grid" id="modalCrewAgentMcpsContainer" style="max-height: 120px; overflow-y: auto;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. MOTOR DE AGENDAMENTO AUTOMÁTICO (SCHEDULED TASK RUNNER) -->
+          <div class="modal-glass-section" style="border-color: rgba(52, 211, 153, 0.4); background: rgba(52, 211, 153, 0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <label style="margin: 0; display: flex; align-items: center; gap: 6px; color: #34d399; font-weight: 800; font-size: 11.5px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                Motor de Tarefas Agendadas (Cron Runner)
+              </label>
+              <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 11px; color: #fff; font-weight: 700;">
+                <input type="checkbox" id="modalCrewAgentScheduleEnabled" onchange="toggleScheduleFields()">
+                <span>Ativar Agendamento Automático</span>
+              </label>
+            </div>
+
+            <div id="scheduleFieldsBox" style="display: none; margin-top: 10px;">
+              <!-- FREQUENCY SELECTOR -->
+              <div class="form-row" style="margin-bottom: 10px;">
+                <div class="form-field">
+                  <label>Frequência de Execução</label>
+                  <select id="modalCrewAgentScheduleFrequency" class="form-input" onchange="updateScheduleFrequencyUI()">
+                    <option value="daily">📅 Diário (Todos os dias no horário)</option>
+                    <option value="weekly">📆 Semanal (Dias específicos da semana)</option>
+                    <option value="hourly">⏱️ De Hora em Hora (ou a cada X horas)</option>
+                    <option value="monthly">🗓️ Mensal (Dia específico do mês)</option>
+                    <option value="once">⚡ Execução Única (Data e hora exata)</option>
+                    <option value="cron">⚙️ Cron Customizado (Expressão padrão)</option>
+                  </select>
+                </div>
+
+                <div class="form-field" id="scheduleStatusGroup">
+                  <label>Status &amp; Próxima Execução</label>
+                  <div style="display: flex; gap: 6px; align-items: center; height: 38px;">
+                    <span id="modalCrewAgentScheduleStatusBadge" class="agent-mini-pill" style="color: #34d399; font-weight: 700; padding: 4px 8px;">ATIVO</span>
+                    <span id="modalCrewAgentScheduleNextRunText" style="font-size: 11px; color: var(--text-dim); font-family: var(--font-mono);">Próxima: Calculando...</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- DYNAMIC PARAMETERS PER FREQUENCY -->
+              <div id="freqTimeRow" class="form-row" style="margin-bottom: 10px;">
+                <div class="form-field">
+                  <label>Horário da Execução</label>
+                  <input type="time" id="modalCrewAgentScheduleTime" class="form-input" value="09:00" style="font-family: var(--font-mono);" oninput="updateNextRunPreview()">
+                </div>
+                <div class="form-field" id="freqIntervalHoursGroup" style="display: none;">
+                  <label>Intervalo de Horas (a cada X horas)</label>
+                  <input type="number" id="modalCrewAgentScheduleIntervalHours" class="form-input" value="1" min="1" max="24" oninput="updateNextRunPreview()">
+                </div>
+                <div class="form-field" id="freqMonthDayGroup" style="display: none;">
+                  <label>Dia do Mês (1 a 31)</label>
+                  <input type="number" id="modalCrewAgentScheduleMonthDay" class="form-input" value="1" min="1" max="31" oninput="updateNextRunPreview()">
+                </div>
+              </div>
+
+              <div id="freqWeekdaysGroup" class="form-field" style="margin-bottom: 10px; display: none;">
+                <label>Dias da Semana</label>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;" id="scheduleWeekdaysContainer">
+                  <label class="weekday-pill"><input type="checkbox" value="1" checked onchange="updateNextRunPreview()"> Seg</label>
+                  <label class="weekday-pill"><input type="checkbox" value="2" checked onchange="updateNextRunPreview()"> Ter</label>
+                  <label class="weekday-pill"><input type="checkbox" value="3" checked onchange="updateNextRunPreview()"> Qua</label>
+                  <label class="weekday-pill"><input type="checkbox" value="4" checked onchange="updateNextRunPreview()"> Qui</label>
+                  <label class="weekday-pill"><input type="checkbox" value="5" checked onchange="updateNextRunPreview()"> Sex</label>
+                  <label class="weekday-pill"><input type="checkbox" value="6" onchange="updateNextRunPreview()"> Sáb</label>
+                  <label class="weekday-pill"><input type="checkbox" value="0" onchange="updateNextRunPreview()"> Dom</label>
+                </div>
+              </div>
+
+              <div id="freqOnceGroup" class="form-field" style="margin-bottom: 10px; display: none;">
+                <label>Data e Hora Específica (Execução Única)</label>
+                <input type="datetime-local" id="modalCrewAgentScheduleDatetime" class="form-input" style="font-family: var(--font-mono); color: #34d399;" oninput="updateNextRunPreview()">
+              </div>
+
+              <div id="freqCronGroup" class="form-field" style="margin-bottom: 10px; display: none;">
+                <label>Expressão Cron (ex: <code>0 9 * * 1-5</code> ou <code>*/30 * * * *</code>)</label>
+                <input type="text" id="modalCrewAgentScheduleCron" class="form-input" placeholder="0 9 * * 1-5" style="font-family: var(--font-mono);" oninput="updateNextRunPreview()">
+              </div>
+
+              <div class="form-field" style="margin-bottom: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                  <label style="margin: 0;">Task Prompt (Instrução que o Agente Executará Automaticamente)</label>
+                  <button type="button" class="btn-secondary" style="font-size: 9.5px; padding: 3px 8px; color: #34d399; border-color: rgba(52, 211, 153, 0.4);" onclick="testRunCurrentModalAgentTask()">
+                    ▶ Testar Execução Agora
+                  </button>
+                </div>
+                <textarea id="modalCrewAgentSchedulePrompt" class="form-input" style="min-height: 80px;" placeholder="ex: Analisar métricas do funil, verificar pendências e gerar relatório no mural..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WORKSTATION FOOTER (fixo, não rola) -->
+      <div class="workstation-modal-footer">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 11px; color: var(--text-muted);">Pressione <strong>ESC</strong> ou clique fora para fechar</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-secondary" onclick="closeCrewAgentModal()">Cancelar</button>
+          <button class="btn-cta" onclick="submitCrewAgentForm()">💾 Salvar Agente no OpenCode</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- =========================================================
+       MODAL: SELETOR GLOBAL DE SKILLS DA CREW (PREMIUM WORKSTATION)
+       ========================================================= -->
+  <div class="modal-backdrop" id="crewSkillPickerModal" style="display: none; z-index: 2500;">
+    <div class="modal-card glass-card modal-large" style="max-width: 980px; height: 88vh; max-height: 840px; display: flex; flex-direction: column;">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <div class="modal-icon-badge" style="background: rgba(168, 85, 247, 0.2); color: #c084fc;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <div>
+            <h3 id="crewSkillPickerTitle">Atribuir Habilidades à Crew</h3>
+            <span style="font-size: 11px; color: var(--text-dim); font-family: var(--font-mono);" id="crewSkillPickerSubtitle">Selecione quais skills do ecossistema estarão disponíveis para a equipe</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeCrewSkillPickerModal()">×</button>
+      </div>
+
+      <!-- SEARCH & FILTER BAR -->
+      <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: center; flex-wrap: wrap;">
+        <input type="text" id="crewSkillPickerSearch" class="form-input" placeholder="🔍 Filtrar habilidades por nome ou diretriz..." oninput="filterCrewSkillPickerGrid()" style="flex: 1; min-width: 200px;">
+        <div class="filter-pills-group" style="margin: 0;">
+          <button type="button" class="filter-pill active" id="pickerFilterAll" onclick="setCrewSkillPickerCategory('all')">TODAS</button>
+          <button type="button" class="filter-pill" id="pickerFilterCore" onclick="setCrewSkillPickerCategory('core')">PLUGINS / CORE</button>
+          <button type="button" class="filter-pill" id="pickerFilterCrew" onclick="setCrewSkillPickerCategory('crew')">CREWS</button>
+          <button type="button" class="filter-pill" id="pickerFilterCustom" onclick="setCrewSkillPickerCategory('custom')">CUSTOM</button>
+        </div>
+        <div style="display: flex; gap: 6px;">
+          <button type="button" class="btn-secondary" style="font-size: 11px; padding: 6px 10px; background: rgba(99, 102, 241, 0.2); color: #818cf8; border-color: rgba(99, 102, 241, 0.4);" onclick="selectAllSkillPickerSkills()">⚡ Selecionar Todas</button>
+          <button type="button" class="btn-secondary" style="font-size: 11px; padding: 6px 10px;" onclick="deselectAllSkillPickerSkills()">❌ Desmarcar</button>
+          <button type="button" class="btn-secondary" style="font-size: 11px; padding: 6px 10px;" onclick="openCreateSkillModal()">+ Nova Skill</button>
+        </div>
+      </div>
+
+      <!-- SKILLS WORKSTATION GRID (SCROLLABLE) -->
+      <div id="crewSkillPickerGrid" style="flex: 1; min-height: 0; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; padding: 4px;">
+        <!-- Preenchido dinamicamente com cards de seleção de skills -->
+      </div>
+
+      <!-- FOOTER -->
+      <div class="modal-footer" style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-size: 12px; color: #a5b4fc; font-weight: 700;" id="crewSkillPickerCounter">
+          0 habilidades selecionadas
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-secondary" onclick="closeCrewSkillPickerModal()">Cancelar (ESC)</button>
+          <button class="btn-cta" onclick="saveCrewAssignedSkills()">💾 Salvar Habilidades da Equipe</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL: MURAL DA CREW & INSTRUÇÕES
+       ========================================================= -->
+  <div class="modal-backdrop" id="crewMuralModal" style="display: none;">
+    <div class="modal-card glass-card modal-large" style="max-width: 780px;">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <div class="modal-icon-badge" style="background: rgba(245, 158, 11, 0.2); color: #fde047;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+          </div>
+          <div>
+            <h3 id="crewMuralModalTitle">Mural da Equipe</h3>
+            <span style="font-size: 11px; color: var(--text-dim); font-family: var(--font-mono);" id="crewMuralModalSubtitle">Instruções diretas &amp; repositório de mídias</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeCrewMuralModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <input type="hidden" id="modalMuralCrewId">
+
+        <div class="form-field">
+          <div class="editor-header-actions">
+            <label>Instruções Diretas do Usuário (mural/INSTRUCTIONS.md)</label>
+            <span style="font-size: 11px; color: var(--text-dim);">Diretrizes macro compartilhadas por todos os agentes da equipe</span>
+          </div>
+          <textarea id="modalMuralInstructions" class="form-input textarea-code" style="min-height: 180px;" placeholder="# Instruções da Equipe..."></textarea>
+        </div>
+
+        <div style="margin-top: 16px;">
+          <div class="editor-header-actions">
+            <label>Arquivos de Mídia, Documentos &amp; Referências (mural/media/)</label>
+            <span class="pill-count" id="modalMuralMediaCount">0 arquivos</span>
+          </div>
+          <div id="modalMuralMediaList" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;"></div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeCrewMuralModal()">Fechar</button>
+        <button class="btn-cta" onclick="submitCrewMuralForm()">Salvar Instruções no Mural</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL: CRIAR / EDITAR SKILL DA CREW
+       ========================================================= -->
+  <div class="modal-backdrop" id="crewSkillModal" style="display: none;">
+    <div class="modal-card glass-card modal-large" style="max-width: 600px;">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <div class="modal-icon-badge" style="background: rgba(6, 182, 212, 0.2); color: #22d3ee;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <h3 id="crewSkillModalTitle">Nova Skill da Crew</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeCrewSkillModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <input type="hidden" id="modalCrewSkillCrewId">
+        <input type="hidden" id="modalCrewSkillAgentName">
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Nome da Habilidade (Slug)</label>
+            <input type="text" id="modalCrewSkillName" class="form-input" placeholder="ex: copywriting-pro, funnel-audit">
+          </div>
+          <div class="form-field">
+            <label>Escopo da Habilidade</label>
+            <select id="modalCrewSkillScope" class="form-input" onchange="updateCrewSkillScope()">
+              <option value="team">Equipe Inteira (skills/)</option>
+              <option value="agent">Agente Específico (agents/&lt;nome&gt;/skills/)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Descrição (Trigger)</label>
+          <input type="text" id="modalCrewSkillDesc" class="form-input" placeholder="ex: Diretrizes avançadas de copywriting">
+        </div>
+
+        <div class="form-field">
+          <label>Conteúdo Markdown (SKILL.md)</label>
+          <textarea id="modalCrewSkillContent" class="form-input textarea-code" style="min-height: 140px;" placeholder="# Título da Skill&#10;&#10;## Objetivo&#10;..."></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeCrewSkillModal()">Cancelar</button>
+        <button class="btn-cta" onclick="submitCrewSkillForm()">Gravar Skill</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: AGENTE GLOBAL -->
+  <div class="modal-backdrop" id="agentModal">
+    <div class="modal-card glass-card modal-large">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <div class="modal-icon-badge" id="modalAgentIconBadge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <h3 id="modalTitle">Configurar Agente Especialista</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeAgentModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <input type="hidden" id="modalAgentType" value="custom">
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Identificador (@handle)</label>
+            <input type="text" id="modalAgentName" class="form-input" placeholder="ex: cmo, growth-engineer, tester">
+          </div>
+          <div class="form-field">
+            <label>Modelo LLM (OmniRoute)</label>
+            <select id="modalAgentModel" class="form-input"></select>
+          </div>
+        </div>
+
+        <div class="form-row" id="fieldMetaRow">
+          <div class="form-field">
+            <label>Modo de Execução</label>
+            <select id="modalAgentMode" class="form-input">
+              <option value="subagent">Subagent (Delegação em Background / Especialista)</option>
+              <option value="primary">Primary (Orquestrador Direto)</option>
+            </select>
+          </div>
+          <div class="form-field" id="fieldDescGroup">
+            <label>Descrição do Papel</label>
+            <input type="text" id="modalAgentDesc" class="form-input" placeholder="ex: Estrategista de marketing e campanhas">
+          </div>
+        </div>
+
+        <div class="form-field" id="fieldPromptGroup">
+          <div class="editor-header-actions">
+            <label>Instruções de Sistema / Prompt Markdown</label>
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);" id="modalAgentFilePath">~/.config/opencode/agents/*.md</span>
+          </div>
+          <textarea id="modalAgentPrompt" class="form-input textarea-code" placeholder="Defina as diretrizes específicas deste especialista..."></textarea>
+        </div>
+
+        <div class="form-field" id="fieldSkillsGroup">
+          <label>Habilidades Vinculadas (Skills)</label>
+          <div class="skills-checkbox-grid" id="modalSkillsContainer"></div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeAgentModal()">Cancelar</button>
+        <button class="btn-cta" onclick="submitAgentForm()">Salvar & Gravar no OpenCode</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: SKILL GLOBAL -->
+  <div class="modal-backdrop" id="skillModal">
+    <div class="modal-card glass-card modal-large">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <div class="modal-icon-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <h3 id="skillModalTitle">Editor de Habilidade (SKILL.md)</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeSkillModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-field">
+            <label>Nome da Habilidade (Pasta / Slug)</label>
+            <input type="text" id="modalSkillName" class="form-input" placeholder="ex: clean-architecture, security-audit">
+          </div>
+          <div class="form-field">
+            <label>Descrição (Trigger de ativação)</label>
+            <input type="text" id="modalSkillDesc" class="form-input" placeholder="ex: Diretrizes para arquitetura limpa e desacoplamento">
+          </div>
+        </div>
+
+        <div class="upload-dropzone" id="skillDropZone" onclick="document.getElementById('skillFileInput').click()">
+          <input type="file" id="skillFileInput" accept=".md,.markdown,.txt" style="display: none;" onchange="handleSkillFileUpload(event)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color: var(--primary);">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          <div class="upload-text">
+            <strong>Upload de arquivo Markdown (.md)</strong> ou arraste para preencher
+          </div>
+        </div>
+
+        <div class="editor-header-actions">
+          <label>Conteúdo Markdown (SKILL.md)</label>
+          <button type="button" class="btn-secondary" onclick="insertSkillTemplate()">Inserir Template Estruturado</button>
+        </div>
+
+        <div class="form-field">
+          <textarea id="modalSkillContent" class="form-input textarea-code" placeholder="# TÍTULO DA HABILIDADE&#10;&#10;## Objetivo&#10;..."></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeSkillModal()">Cancelar</button>
+        <button class="btn-cta" onclick="submitSkillForm()">Salvar no OpenCode</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: CONTRATO DE ROTEAMENTO (ORCHESTRATOR MATRIX) -->
+  <div class="modal-backdrop" id="agentRoutingModal" style="display: none; z-index: 2800;">
+    <div class="modal-card glass-card" style="max-width: 680px;">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <div class="modal-icon-badge" style="background: rgba(14, 165, 233, 0.2); color: #38bdf8;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </div>
+          <div>
+            <h3 id="routingModalTitle">Contrato de Delegação (Oh-My-OpenCode)</h3>
+            <span style="font-size: 11px; color: var(--text-dim); font-family: var(--font-mono);" id="routingModalSubtitle">Matriz de roteamento e regras de despacho do líder</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeAgentRoutingModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="routing-contract-box" id="routingModalContent"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="copyRoutingModalContent()">📋 Copiar Contrato</button>
+        <button class="btn-cta" onclick="closeAgentRoutingModal()">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: CONFIRMAÇÃO PERSONALIZADO -->
+  <div class="modal-backdrop" id="confirmModal" style="display:none; z-index: 3000;">
+    <div class="modal-card glass-card" style="max-width: 440px; text-align: center; border: 1px solid rgba(244, 63, 94, 0.35); box-shadow: 0 25px 70px rgba(0,0,0,0.85), 0 0 35px rgba(244,63,94,0.2);">
+      <div style="display:flex; justify-content:center; margin-bottom: 16px;">
+        <div style="width: 52px; height: 52px; border-radius: 50%; background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.4); display: flex; align-items: center; justify-content: center; color: #fda4af;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18"></path>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            <line x1="10" y1="11" x2="10" y2="17"></line>
+            <line x1="14" y1="11" x2="14" y2="17"></line>
+          </svg>
+        </div>
+      </div>
+      <h3 id="confirmModalTitle" style="font-size: 18px; font-weight: 800; margin-bottom: 8px; color: #fff;">Confirmar Exclusão</h3>
+      <p id="confirmModalMessage" style="font-size: 13px; color: var(--text-dim); line-height: 1.5; margin-bottom: 24px;"></p>
+      <div style="display:flex; gap: 10px; justify-content: center;">
+        <button class="btn-secondary" id="confirmModalCancelBtn" style="padding: 9px 20px; font-weight: 700; cursor: pointer; border-radius: var(--radius-sm);">Cancelar</button>
+        <button class="btn-remove-agent" id="confirmModalOkBtn" style="padding: 9px 22px; font-weight: 800; cursor: pointer; background: var(--rose); color: white; border-radius: var(--radius-sm); box-shadow: 0 4px 15px rgba(244,63,94,0.4);">Excluir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-popup" id="toastPopup">Ação concluída com sucesso.</div>
+
+  <!-- DITHER BACKGROUND & SCRIPTS -->
+  <script src="/dither-background.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

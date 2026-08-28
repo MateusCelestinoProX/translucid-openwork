@@ -1,0 +1,12 @@
+{
+  "name": "opencode-dashboard",
+  "version": "1.0.0",
+  "description": "Unified OpenCode Visual Dashboard, Agent Studio & Real-time Activity Monitor",
+  "main": "server.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun run server.ts",
+    "dev": "bun --watch server.ts"
+  },
+  "dependencies": {}
+}

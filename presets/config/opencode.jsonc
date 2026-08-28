@@ -1,0 +1,97 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "omniroute/combo/code",
+  "small_model": "omniroute/antigravity/gemini-3.1-flash-lite",
+  "disabled_providers": [
+    "openai"
+  ],
+  "provider": {
+    "omniroute": {
+      "name": "OmniRoute Gateway",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:20128/v1",
+        "apiKey": "sk-0945da2c34cf5971-31c029-f0b591b3"
+      },
+      "models": {
+        "antigravity/gemini-3.6-flash-high": {
+          "name": "Gemini 3.6 Flash High (Antigravity)"
+        },
+        "antigravity/gemini-2.5-flash": {
+          "name": "Gemini 2.5 Flash (Antigravity)"
+        },
+        "combo/code": {
+          "name": "⚡ Super Combo Programação (OmniRoute)",
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          }
+        },
+        "antigravity/claude-sonnet-4-6": {
+          "name": "Claude Sonnet 4.6 (Antigravity)"
+        },
+        "antigravity/gemini-3.1-flash-lite": {
+          "name": "Gemini 3.1 Flash Lite (Antigravity)"
+        },
+        "antigravity/claude-opus-4-6-thinking": {
+          "name": "Claude Opus 4.6 Thinking (Antigravity)"
+        },
+        "combo/chat-multimodal": {
+          "name": "👁️ Super Combo Multimodal & Visão (OmniRoute)",
+          "limit": {
+            "context": 2000000,
+            "output": 65536
+          }
+        },
+        "antigravity/gemini-3.1-pro-low": {
+          "name": "Gemini 3.1 Pro Multimodal 2M (Antigravity)"
+        },
+        "dragonqwen/qwen-plus-character": {
+          "name": "Qwen Plus Character (DragonQwen)"
+        },
+        "nvidia/nvidia/nemotron-3-super-120b-a12b": {
+          "name": "Nemotron 3 Super 120B (Nvidia)"
+        },
+        "nscale/meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+          "name": "Llama 4 Scout 17B (Nscale)"
+        },
+        "nscale/Qwen/Qwen3-235B-A22B-Instruct-2507": {
+          "name": "Qwen3 235B A22B (Nscale)"
+        },
+        "ollama-cloud/nemotron-3-super": {
+          "name": "Nemotron 3 Super (Ollama Cloud)"
+        },
+        "nscale/moonshotai/Kimi-K2.5": {
+          "name": "Kimi K2.5 (Nscale)"
+        },
+        "sealion/aisingapore/Qwen-SEA-LION-v4.5-27B-IT": {
+          "name": "SeaLion 27B IT (SeaLion)"
+        },
+        "typhoon/typhoon-v2.5-30b-a3b-instruct": {
+          "name": "Typhoon 30B (Typhoon)",
+          "limit": {
+            "context": 131072,
+            "output": 16384
+          }
+        },
+        "baseten/deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek V4 Pro (Baseten)"
+        }
+      }
+    }
+  },
+  "shell": "zsh",
+  "plugin": [
+    "/Users/mcp/Documents/Default Project/oh-my-opencode-slim"
+  ],
+  "agent": {
+    "explore": {
+      "disable": true
+    },
+    "general": {
+      "disable": true
+    }
+  },
+  "lsp": true,
+  "mcp": {}
+}
