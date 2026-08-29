@@ -134,13 +134,772 @@ const customGlassStyle = `
 
 function generateOpenWorkEngineScript() {
   const THEMES_JSON = JSON.stringify([
-    { id: "poimandres", name: "Poimandres (Cyan & Emerald)", primary: "#5DE4c7", keyword: "#f087bd", func: "#00CED1", string: "#fffac2", comment: "#767c9d", accents: ["#5DE4c7", "#00CED1", "#f087bd", "#fffac2"] },
-    { id: "neon-emerald", name: "Neon Emerald & Cyan", primary: "#10b981", keyword: "#06b6d4", func: "#34d399", string: "#a7f3d0", comment: "#64748b", accents: ["#10b981", "#06b6d4", "#34d399", "#a7f3d0"] },
-    { id: "ayu-dark", name: "Ayu Dark", primary: "#E6B450", keyword: "#FF8F40", func: "#39BAE6", string: "#AAD94C", comment: "#626d7a", accents: ["#E6B450", "#FF8F40", "#39BAE6", "#AAD94C"] },
-    { id: "moonlight", name: "Moonlight", primary: "#af9fff", keyword: "#ff757f", func: "#78dbff", string: "#c3e88d", comment: "#7a88cf", accents: ["#af9fff", "#ff757f", "#78dbff", "#c3e88d"] },
-    { id: "purple-dream", name: "Purple Dream", primary: "#a855f7", keyword: "#ec4899", func: "#8b5cf6", string: "#f472b6", comment: "#6b7280", accents: ["#a855f7", "#ec4899", "#8b5cf6", "#f472b6"] },
-    { id: "cyber-cyan", name: "Cyber Cyan", primary: "#00f0ff", keyword: "#ff007f", func: "#ffe600", string: "#00ffcc", comment: "#555577", accents: ["#00f0ff", "#ff007f", "#ffe600", "#00ffcc"] }
-  ]);
+    {
+        "id": "poimandres",
+        "name": "Poimandres (Cyan & Emerald)",
+        "primary": "#5DE4c7",
+        "keyword": "#f087bd",
+        "func": "#00CED1",
+        "string": "#fffac2",
+        "comment": "#767c9d",
+        "accents": [
+            "#5DE4c7",
+            "#00CED1",
+            "#f087bd",
+            "#fffac2"
+        ]
+    },
+    {
+        "id": "neon-emerald",
+        "name": "Neon Emerald & Cyan",
+        "primary": "#10b981",
+        "keyword": "#06b6d4",
+        "func": "#34d399",
+        "string": "#a7f3d0",
+        "comment": "#64748b",
+        "accents": [
+            "#10b981",
+            "#06b6d4",
+            "#34d399",
+            "#a7f3d0"
+        ]
+    },
+    {
+        "id": "tokyo-night",
+        "name": "Tokyo Night",
+        "primary": "#7aa2f7",
+        "keyword": "#bb9af7",
+        "func": "#7dcfff",
+        "string": "#9ece6a",
+        "comment": "#565f89",
+        "accents": [
+            "#7aa2f7",
+            "#bb9af7",
+            "#7dcfff",
+            "#9ece6a"
+        ]
+    },
+    {
+        "id": "dracula",
+        "name": "Dracula Pro",
+        "primary": "#bd93f9",
+        "keyword": "#ff79c6",
+        "func": "#50fa7b",
+        "string": "#f1fa8c",
+        "comment": "#6272a4",
+        "accents": [
+            "#bd93f9",
+            "#ff79c6",
+            "#50fa7b",
+            "#f1fa8c"
+        ]
+    },
+    {
+        "id": "catppuccin-mocha",
+        "name": "Catppuccin Mocha",
+        "primary": "#cba6f7",
+        "keyword": "#f38ba8",
+        "func": "#89b4fa",
+        "string": "#a6e3a1",
+        "comment": "#6c7086",
+        "accents": [
+            "#cba6f7",
+            "#f38ba8",
+            "#89b4fa",
+            "#a6e3a1"
+        ]
+    },
+    {
+        "id": "one-dark-pro",
+        "name": "One Dark Pro",
+        "primary": "#61afef",
+        "keyword": "#c678dd",
+        "func": "#98c379",
+        "string": "#e5c07b",
+        "comment": "#5c6370",
+        "accents": [
+            "#61afef",
+            "#c678dd",
+            "#98c379",
+            "#e5c07b"
+        ]
+    },
+    {
+        "id": "synthwave-84",
+        "name": "Synthwave '84",
+        "primary": "#ff7edb",
+        "keyword": "#f92aad",
+        "func": "#36f9f6",
+        "string": "#fe4450",
+        "comment": "#614d85",
+        "accents": [
+            "#ff7edb",
+            "#f92aad",
+            "#36f9f6",
+            "#fe4450"
+        ]
+    },
+    {
+        "id": "cyberpunk-2077",
+        "name": "Cyberpunk 2077",
+        "primary": "#fcee0a",
+        "keyword": "#ff003c",
+        "func": "#00f0ff",
+        "string": "#00ff66",
+        "comment": "#71717a",
+        "accents": [
+            "#fcee0a",
+            "#ff003c",
+            "#00f0ff",
+            "#00ff66"
+        ]
+    },
+    {
+        "id": "nord",
+        "name": "Nord Frost",
+        "primary": "#88c0d0",
+        "keyword": "#81a1c1",
+        "func": "#8fbcbb",
+        "string": "#a3be8c",
+        "comment": "#616e88",
+        "accents": [
+            "#88c0d0",
+            "#81a1c1",
+            "#8fbcbb",
+            "#a3be8c"
+        ]
+    },
+    {
+        "id": "gruvbox-dark",
+        "name": "Gruvbox Material",
+        "primary": "#ebdbb2",
+        "keyword": "#fb4934",
+        "func": "#b8bb26",
+        "string": "#fabd2f",
+        "comment": "#928374",
+        "accents": [
+            "#ebdbb2",
+            "#fb4934",
+            "#b8bb26",
+            "#fabd2f"
+        ]
+    },
+    {
+        "id": "rose-pine",
+        "name": "Rosé Pine",
+        "primary": "#ebbcba",
+        "keyword": "#eb6f92",
+        "func": "#9ccfd8",
+        "string": "#f6c177",
+        "comment": "#6e6a86",
+        "accents": [
+            "#ebbcba",
+            "#eb6f92",
+            "#9ccfd8",
+            "#f6c177"
+        ]
+    },
+    {
+        "id": "ayu-dark",
+        "name": "Ayu Dark",
+        "primary": "#E6B450",
+        "keyword": "#FF8F40",
+        "func": "#39BAE6",
+        "string": "#AAD94C",
+        "comment": "#626d7a",
+        "accents": [
+            "#E6B450",
+            "#FF8F40",
+            "#39BAE6",
+            "#AAD94C"
+        ]
+    },
+    {
+        "id": "moonlight",
+        "name": "Moonlight",
+        "primary": "#af9fff",
+        "keyword": "#ff757f",
+        "func": "#78dbff",
+        "string": "#c3e88d",
+        "comment": "#7a88cf",
+        "accents": [
+            "#af9fff",
+            "#ff757f",
+            "#78dbff",
+            "#c3e88d"
+        ]
+    },
+    {
+        "id": "cobalt2",
+        "name": "Cobalt2",
+        "primary": "#ffc600",
+        "keyword": "#ff9d00",
+        "func": "#0088ff",
+        "string": "#3ad900",
+        "comment": "#0088ff",
+        "accents": [
+            "#ffc600",
+            "#ff9d00",
+            "#0088ff",
+            "#3ad900"
+        ]
+    },
+    {
+        "id": "shades-of-purple",
+        "name": "Shades of Purple",
+        "primary": "#fad000",
+        "keyword": "#ff9d00",
+        "func": "#a599e9",
+        "string": "#b362ff",
+        "comment": "#b362ff",
+        "accents": [
+            "#fad000",
+            "#ff9d00",
+            "#a599e9",
+            "#b362ff"
+        ]
+    },
+    {
+        "id": "night-owl",
+        "name": "Night Owl",
+        "primary": "#82aaff",
+        "keyword": "#c792ea",
+        "func": "#ecc48d",
+        "string": "#addb67",
+        "comment": "#637777",
+        "accents": [
+            "#82aaff",
+            "#c792ea",
+            "#ecc48d",
+            "#addb67"
+        ]
+    },
+    {
+        "id": "monokai-pro",
+        "name": "Monokai Pro",
+        "primary": "#ffd866",
+        "keyword": "#ff6188",
+        "func": "#78dce8",
+        "string": "#a9dc76",
+        "comment": "#727072",
+        "accents": [
+            "#ffd866",
+            "#ff6188",
+            "#78dce8",
+            "#a9dc76"
+        ]
+    },
+    {
+        "id": "palenight",
+        "name": "Material Palenight",
+        "primary": "#82aaff",
+        "keyword": "#c792ea",
+        "func": "#ffcb6b",
+        "string": "#c3e88d",
+        "comment": "#676e95",
+        "accents": [
+            "#82aaff",
+            "#c792ea",
+            "#ffcb6b",
+            "#c3e88d"
+        ]
+    },
+    {
+        "id": "laserwave",
+        "name": "LaserWave Neon",
+        "primary": "#40b4c4",
+        "keyword": "#ff6b9d",
+        "func": "#ffe261",
+        "string": "#b381c5",
+        "comment": "#91889b",
+        "accents": [
+            "#40b4c4",
+            "#ff6b9d",
+            "#ffe261",
+            "#b381c5"
+        ]
+    },
+    {
+        "id": "abyss",
+        "name": "Abyss Deep Ocean",
+        "primary": "#225588",
+        "keyword": "#6688cc",
+        "func": "#ddbb88",
+        "string": "#22aa44",
+        "comment": "#384887",
+        "accents": [
+            "#225588",
+            "#6688cc",
+            "#ddbb88",
+            "#22aa44"
+        ]
+    },
+    {
+        "id": "horizon",
+        "name": "Horizon Warm",
+        "primary": "#e95678",
+        "keyword": "#fab795",
+        "func": "#26bbd9",
+        "string": "#fac29a",
+        "comment": "#6c6f93",
+        "accents": [
+            "#e95678",
+            "#fab795",
+            "#26bbd9",
+            "#fac29a"
+        ]
+    },
+    {
+        "id": "panda-syntax",
+        "name": "Panda Syntax",
+        "primary": "#19f9d8",
+        "keyword": "#ff4b82",
+        "func": "#ffb86c",
+        "string": "#45a9f9",
+        "comment": "#676b79",
+        "accents": [
+            "#19f9d8",
+            "#ff4b82",
+            "#ffb86c",
+            "#45a9f9"
+        ]
+    },
+    {
+        "id": "purple-dream",
+        "name": "Purple Dream",
+        "primary": "#a855f7",
+        "keyword": "#ec4899",
+        "func": "#8b5cf6",
+        "string": "#f472b6",
+        "comment": "#6b7280",
+        "accents": [
+            "#a855f7",
+            "#ec4899",
+            "#8b5cf6",
+            "#f472b6"
+        ]
+    },
+    {
+        "id": "cyber-cyan",
+        "name": "Cyber Cyan",
+        "primary": "#00f0ff",
+        "keyword": "#ff007f",
+        "func": "#ffe600",
+        "string": "#00ffcc",
+        "comment": "#555577",
+        "accents": [
+            "#00f0ff",
+            "#ff007f",
+            "#ffe600",
+            "#00ffcc"
+        ]
+    },
+    {
+        "id": "charcoal",
+        "name": "Charcoal",
+        "primary": "#5DE4c7",
+        "keyword": "#f087bd",
+        "func": "#00CED1",
+        "string": "#fffac2",
+        "comment": "#767c9d",
+        "accents": [
+            "#5DE4c7",
+            "#f087bd",
+            "#00CED1",
+            "#fffac2"
+        ]
+    },
+    {
+        "id": "lavi-deep-ember",
+        "name": "Lavi Deep Ember",
+        "primary": "#5DE4c7",
+        "keyword": "#f087bd",
+        "func": "#00CED1",
+        "string": "#fffac2",
+        "comment": "#767c9d",
+        "accents": [
+            "#5DE4c7",
+            "#f087bd",
+            "#00CED1",
+            "#fffac2"
+        ]
+    },
+    {
+        "id": "lavi-deep",
+        "name": "Lavi Deep",
+        "primary": "#5DE4c7",
+        "keyword": "#f087bd",
+        "func": "#00CED1",
+        "string": "#fffac2",
+        "comment": "#767c9d",
+        "accents": [
+            "#5DE4c7",
+            "#f087bd",
+            "#00CED1",
+            "#fffac2"
+        ]
+    },
+    {
+        "id": "lavi",
+        "name": "Lavi",
+        "primary": "#5DE4c7",
+        "keyword": "#f087bd",
+        "func": "#00CED1",
+        "string": "#fffac2",
+        "comment": "#767c9d",
+        "accents": [
+            "#5DE4c7",
+            "#f087bd",
+            "#00CED1",
+            "#fffac2"
+        ]
+    },
+    {
+        "id": "poimandres-accessible",
+        "name": "Poimandres Accessible",
+        "primary": "#5DE4c7",
+        "keyword": "#f087bd",
+        "func": "#00CED1",
+        "string": "#fffac2",
+        "comment": "#767c9d",
+        "accents": [
+            "#5DE4c7",
+            "#f087bd",
+            "#00CED1",
+            "#fffac2"
+        ]
+    },
+    {
+        "id": "poimandres-turquoise-expanded",
+        "name": "Poimandres Turquoise Expanded",
+        "primary": "#5DE4c7",
+        "keyword": "#f087bd",
+        "func": "#00CED1",
+        "string": "#fffac2",
+        "comment": "#767c9d",
+        "accents": [
+            "#5DE4c7",
+            "#f087bd",
+            "#00CED1",
+            "#fffac2"
+        ]
+    },
+    {
+        "id": "scaefy-bluloco-light",
+        "name": "Bluloco Light",
+        "primary": "#0099e1",
+        "keyword": "#727378",
+        "func": "#047485",
+        "string": "#a0a1a7",
+        "comment": "#383a42",
+        "accents": [
+            "#0099e1",
+            "#727378",
+            "#047485",
+            "#a0a1a7"
+        ]
+    },
+    {
+        "id": "scaefy-brackets-light-pro",
+        "name": "Brackets Light Pro",
+        "primary": "#0066cc",
+        "keyword": "#386ac3",
+        "func": "#8431c5",
+        "string": "#e88501",
+        "comment": "#10a567",
+        "accents": [
+            "#0066cc",
+            "#386ac3",
+            "#8431c5",
+            "#e88501"
+        ]
+    },
+    {
+        "id": "scaefy-classic-light",
+        "name": "Classic Light",
+        "primary": "#22a5c9",
+        "keyword": "#e022b4",
+        "func": "#0073d1",
+        "string": "#189433",
+        "comment": "#6c8d96",
+        "accents": [
+            "#22a5c9",
+            "#e022b4",
+            "#0073d1",
+            "#189433"
+        ]
+    },
+    {
+        "id": "scaefy-coffee-cream",
+        "name": "Coffee Cream",
+        "primary": "#D3694C",
+        "keyword": "#CE4985",
+        "func": "#008ea4",
+        "string": "#4d9900",
+        "comment": "#ad9189",
+        "accents": [
+            "#D3694C",
+            "#CE4985",
+            "#008ea4",
+            "#4d9900"
+        ]
+    },
+    {
+        "id": "scaefy-github-light",
+        "name": "Github Light",
+        "primary": "#d73a49",
+        "keyword": "#d73a49",
+        "func": "#005cc5",
+        "string": "#032f62",
+        "comment": "#6a737d",
+        "accents": [
+            "#d73a49",
+            "#d73a49",
+            "#005cc5",
+            "#032f62"
+        ]
+    },
+    {
+        "id": "scaefy-github-plus",
+        "name": "Github Plus",
+        "primary": "#fafbfc",
+        "keyword": "#24292e",
+        "func": "#d73a49",
+        "string": "#032f62",
+        "comment": "#6a737d",
+        "accents": [
+            "#fafbfc",
+            "#24292e",
+            "#d73a49",
+            "#032f62"
+        ]
+    },
+    {
+        "id": "scaefy-gold-d-raynh-light",
+        "name": "Gold D Raynh Light",
+        "primary": "#2397e5",
+        "keyword": "#002e74",
+        "func": "#037ed1",
+        "string": "#03810d",
+        "comment": "#6698b9",
+        "accents": [
+            "#2397e5",
+            "#002e74",
+            "#037ed1",
+            "#03810d"
+        ]
+    },
+    {
+        "id": "scaefy-hc-flurry",
+        "name": "Hc Flurry",
+        "primary": "#444c54",
+        "keyword": "#f08ad9",
+        "func": "#0aa3d6",
+        "string": "#41ad4e",
+        "comment": "#898989",
+        "accents": [
+            "#444c54",
+            "#f08ad9",
+            "#0aa3d6",
+            "#41ad4e"
+        ]
+    },
+    {
+        "id": "scaefy-hop-light",
+        "name": "Hop Light",
+        "primary": "#0066cc",
+        "keyword": "#398BC9",
+        "func": "#3F831E",
+        "string": "#BD7111",
+        "comment": "#96928F",
+        "accents": [
+            "#0066cc",
+            "#398BC9",
+            "#3F831E",
+            "#BD7111"
+        ]
+    },
+    {
+        "id": "scaefy-light",
+        "name": "Light",
+        "primary": "#526FFF",
+        "keyword": "#A626A4",
+        "func": "#4078F2",
+        "string": "#50A14F",
+        "comment": "#A0A1A7",
+        "accents": [
+            "#526FFF",
+            "#A626A4",
+            "#4078F2",
+            "#50A14F"
+        ]
+    },
+    {
+        "id": "scaefy-melle-julie-light",
+        "name": "Melle Julie Light",
+        "primary": "#218d8f",
+        "keyword": "#ae6cbe",
+        "func": "#1f89cf",
+        "string": "#2aa54d",
+        "comment": "#5f6868",
+        "accents": [
+            "#218d8f",
+            "#ae6cbe",
+            "#1f89cf",
+            "#2aa54d"
+        ]
+    },
+    {
+        "id": "scaefy-milkshake-blueberry",
+        "name": "Milkshake Blueberry",
+        "primary": "#422eb0",
+        "keyword": "#c121a4",
+        "func": "#0076c5",
+        "string": "#008b17",
+        "comment": "#78777e",
+        "accents": [
+            "#422eb0",
+            "#c121a4",
+            "#0076c5",
+            "#008b17"
+        ]
+    },
+    {
+        "id": "scaefy-milkshake-mango",
+        "name": "Milkshake Mango",
+        "primary": "#bd4f27",
+        "keyword": "#c121a4",
+        "func": "#0076c5",
+        "string": "#008b17",
+        "comment": "#8a7872",
+        "accents": [
+            "#bd4f27",
+            "#c121a4",
+            "#0076c5",
+            "#008b17"
+        ]
+    },
+    {
+        "id": "scaefy-milkshake-mint",
+        "name": "Milkshake Mint",
+        "primary": "#2a9b7d",
+        "keyword": "#c121a4",
+        "func": "#0076c5",
+        "string": "#008b17",
+        "comment": "#6d6f6f",
+        "accents": [
+            "#2a9b7d",
+            "#c121a4",
+            "#0076c5",
+            "#008b17"
+        ]
+    },
+    {
+        "id": "scaefy-milkshake-raspberry",
+        "name": "Milkshake Raspberry",
+        "primary": "#d1174f",
+        "keyword": "#c121a4",
+        "func": "#0076c5",
+        "string": "#008b17",
+        "comment": "#9e6475",
+        "accents": [
+            "#d1174f",
+            "#c121a4",
+            "#0076c5",
+            "#008b17"
+        ]
+    },
+    {
+        "id": "scaefy-milkshake-vanilla",
+        "name": "Milkshake Vanilla",
+        "primary": "#937416",
+        "keyword": "#c121a4",
+        "func": "#0076c5",
+        "string": "#008b17",
+        "comment": "#6d6757",
+        "accents": [
+            "#937416",
+            "#c121a4",
+            "#0076c5",
+            "#008b17"
+        ]
+    },
+    {
+        "id": "scaefy-netbeans-light",
+        "name": "Netbeans Light",
+        "primary": "#0066cc",
+        "keyword": "#969696",
+        "func": "#000000",
+        "string": "#9933CC",
+        "comment": "#969696",
+        "accents": [
+            "#0066cc",
+            "#969696",
+            "#000000",
+            "#9933CC"
+        ]
+    },
+    {
+        "id": "scaefy-quiet-light",
+        "name": "Quiet Light",
+        "primary": "#3399ff",
+        "keyword": "#777777",
+        "func": "#aa3731",
+        "string": "#448C27",
+        "comment": "#aaaaaa",
+        "accents": [
+            "#3399ff",
+            "#777777",
+            "#aa3731",
+            "#448C27"
+        ]
+    },
+    {
+        "id": "scaefy-solarized-light",
+        "name": "Solarized Light",
+        "primary": "#2aa198",
+        "keyword": "#c64fbc",
+        "func": "#2c97e3",
+        "string": "#819501",
+        "comment": "#8f9f9e",
+        "accents": [
+            "#2aa198",
+            "#c64fbc",
+            "#2c97e3",
+            "#819501"
+        ]
+    },
+    {
+        "id": "scaefy-vivid-light",
+        "name": "Vivid Light",
+        "primary": "#7e7e7e",
+        "keyword": "#E66DFF",
+        "func": "#0099ff",
+        "string": "#00ac39",
+        "comment": "#8a8a8a",
+        "accents": [
+            "#7e7e7e",
+            "#E66DFF",
+            "#0099ff",
+            "#00ac39"
+        ]
+    },
+    {
+        "id": "scaefy-ysgrifennwr",
+        "name": "Ysgrifennwr",
+        "primary": "#0066cc",
+        "keyword": "#777777",
+        "func": "#AA3731",
+        "string": "#448C27",
+        "comment": "#AAAAAA",
+        "accents": [
+            "#0066cc",
+            "#777777",
+            "#AA3731",
+            "#448C27"
+        ]
+    }
+]);
 
   return `
   <script id="translucid-openwork-master-script">
