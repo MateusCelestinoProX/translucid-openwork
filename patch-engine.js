@@ -129,6 +129,34 @@ const customGlassStyle = `
       color: #ffffff !important;
       transform: translateY(-1px);
     }
+
+    /* 🔘 FIX: High Contrast Dark Text for Solid Primary Buttons (bg-foreground / bg-primary) */
+    .text-background,
+    [class*="text-background"],
+    [data-slot="button"][class*="bg-foreground"],
+    button[class*="bg-foreground"],
+    [data-slot="button"][class*="bg-white"],
+    button[class*="bg-white"],
+    [data-slot="button"][class*="bg-primary"],
+    button[class*="bg-primary"],
+    .bg-foreground.text-background,
+    .bg-primary.text-primary-foreground {
+      color: #0b0f17 !important;
+      font-weight: 600 !important;
+    }
+
+    .text-background *,
+    [class*="text-background"] *,
+    [data-slot="button"][class*="bg-foreground"] *,
+    button[class*="bg-foreground"] *,
+    [data-slot="button"][class*="bg-white"] *,
+    button[class*="bg-white"] *,
+    [data-slot="button"][class*="bg-primary"] *,
+    button[class*="bg-primary"] *,
+    .bg-foreground.text-background *,
+    .bg-primary.text-primary-foreground * {
+      color: #0b0f17 !important;
+    }
   </style>
 `;
 
@@ -1152,6 +1180,8 @@ function generateOpenWorkEngineScript() {
           '  --dls-accent: ' + colors.primary + ' !important;',
           '  --ring: ' + colors.primary + ' !important;',
           '}',
+          '.text-background, [class*="text-background"], [data-slot="button"][class*="bg-foreground"], button[class*="bg-foreground"], button[class*="bg-primary"], .bg-foreground.text-background, .bg-primary.text-primary-foreground { color: #0b0f17 !important; font-weight: 600 !important; }',
+          '.text-background *, [class*="text-background"] *, [data-slot="button"][class*="bg-foreground"] *, button[class*="bg-foreground"] *, button[class*="bg-primary"] *, .bg-foreground.text-background *, .bg-primary.text-primary-foreground * { color: #0b0f17 !important; }',
           '#openwork-theme-btn, #openwork-dashboard-btn { color: ' + colors.primary + ' !important; }'
         ].join(String.fromCharCode(10));
       }
