@@ -40,14 +40,14 @@ const customGlassStyle = `
       --sidebar-foreground: #e6edf3 !important;
       --sidebar-border: rgba(255, 255, 255, 0.08) !important;
       --muted: rgba(255, 255, 255, 0.05) !important;
-      --muted-foreground: #9198a1 !important;
+      --muted-foreground: #cbd5e1 !important;
       --secondary: rgba(255, 255, 255, 0.05) !important;
       --secondary-foreground: #e6edf3 !important;
       --accent: rgba(255, 255, 255, 0.08) !important;
       --accent-foreground: #ffffff !important;
 
       --dls-text-primary: #e6edf3 !important;
-      --dls-text-secondary: #9198a1 !important;
+      --dls-text-secondary: #cbd5e1 !important;
       --dls-border: rgba(255, 255, 255, 0.08) !important;
       --border: rgba(255, 255, 255, 0.08) !important;
       --input: rgba(255, 255, 255, 0.08) !important;
@@ -156,6 +156,43 @@ const customGlassStyle = `
     .bg-foreground.text-background *,
     .bg-primary.text-primary-foreground * {
       color: #0b0f17 !important;
+    }
+
+    /* 📌 HIGH CONTRAST SIDEBAR & SETTINGS NAVIGATION */
+    aside, nav, [data-slot="sidebar"], [class*="sidebar"] {
+      --muted-foreground: #cbd5e1 !important;
+    }
+
+    aside a, aside button, nav a, nav button, [data-slot="sidebar"] a, [data-slot="sidebar"] button, [class*="sidebar"] a, [class*="sidebar"] button {
+      color: #d1d5db !important;
+      font-weight: 500 !important;
+      transition: color 0.15s ease, background-color 0.15s ease !important;
+    }
+
+    aside a:hover, aside button:hover, nav a:hover, nav button:hover, [data-slot="sidebar"] a:hover, [data-slot="sidebar"] button:hover, [class*="sidebar"] a:hover, [class*="sidebar"] button:hover {
+      color: #ffffff !important;
+    }
+
+    aside [data-active="true"], nav [data-active="true"], [data-slot="sidebar"] [data-active="true"], [class*="sidebar"] [data-active="true"], aside [aria-current="page"], nav [aria-current="page"], [data-slot="sidebar"] [aria-current="page"], aside .active, nav .active {
+      color: #ffffff !important;
+      font-weight: 600 !important;
+    }
+
+    aside svg, nav svg, [data-slot="sidebar"] svg, [class*="sidebar"] svg {
+      color: #cbd5e1 !important;
+      opacity: 0.95 !important;
+    }
+
+    aside a:hover svg, aside button:hover svg, nav a:hover svg, nav button:hover svg, [data-slot="sidebar"] a:hover svg, [class*="sidebar"] a:hover svg {
+      color: #ffffff !important;
+      opacity: 1 !important;
+    }
+
+    aside [class*="uppercase"], nav [class*="uppercase"], [data-slot="sidebar"] [class*="uppercase"], [class*="sidebar"] [class*="uppercase"] {
+      color: #94a3b8 !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.05em !important;
+      opacity: 0.90 !important;
     }
   </style>
 `;
